@@ -280,6 +280,7 @@ public class AddServerActivity extends ActionBarActivity implements OnClickListe
             );
 
         Server server = getServerFromView();
+        server.setTitle(identity.getNickname());
         server.setAuthentication(authentication);
 
         long serverId = db.addServer(server, (int) identityId);
@@ -340,12 +341,12 @@ public class AddServerActivity extends ActionBarActivity implements OnClickListe
      */
     private Server getServerFromView()
     {
-        String title = ((EditText) findViewById(R.id.title)).getText().toString().trim();
-        String host = ((EditText) findViewById(R.id.host)).getText().toString().trim();
-        int port = Integer.parseInt(((EditText) findViewById(R.id.port)).getText().toString().trim());
+        //String title = ((EditText) findViewById(R.id.title)).getText().toString().trim();
+        String host = "fresa.chatsfree.net"; //((EditText) findViewById(R.id.host)).getText().toString().trim();
+        int port = 6667; //Integer.parseInt(((EditText) findViewById(R.id.port)).getText().toString().trim());
         String password = ((EditText) findViewById(R.id.password)).getText().toString().trim();
-        String charset = ((Spinner) findViewById(R.id.charset)).getSelectedItem().toString();
-        Boolean useSSL = ((CheckBox) findViewById(R.id.useSSL)).isChecked();
+        String charset = "UTF-8"; //((Spinner) findViewById(R.id.charset)).getSelectedItem().toString();
+        Boolean useSSL = false; //((CheckBox) findViewById(R.id.useSSL)).isChecked();
 
         // not in use yet
         //boolean autoConnect = ((CheckBox) findViewById(R.id.autoconnect)).isChecked();
@@ -354,7 +355,7 @@ public class AddServerActivity extends ActionBarActivity implements OnClickListe
         server.setHost(host);
         server.setPort(port);
         server.setPassword(password);
-        server.setTitle(title);
+        //server.setTitle(title);
         server.setCharset(charset);
         server.setUseSSL(useSSL);
         server.setStatus(Status.DISCONNECTED);
@@ -372,6 +373,7 @@ public class AddServerActivity extends ActionBarActivity implements OnClickListe
         String nickname = ((EditText) findViewById(R.id.nickname)).getText().toString().trim();
         String ident = ((EditText) findViewById(R.id.ident)).getText().toString().trim();
         String realname = ((EditText) findViewById(R.id.realname)).getText().toString().trim();
+
 
         Identity identity = new Identity();
         identity.setNickname(nickname);
@@ -394,21 +396,24 @@ public class AddServerActivity extends ActionBarActivity implements OnClickListe
         String host = ((EditText) findViewById(R.id.host)).getText().toString();
         String port = ((EditText) findViewById(R.id.port)).getText().toString();
         String charset = ((Spinner) findViewById(R.id.charset)).getSelectedItem().toString();
-
+        /*
         if (title.trim().equals("")) {
             throw new ValidationException(getResources().getString(R.string.validation_blank_title));
         }
-
+        */
+        /*
         if (host.trim().equals("")) {
             // XXX: We should use some better host validation
             throw new ValidationException(getResources().getString(R.string.validation_blank_host));
         }
-
+        */
+        /*
         try {
             Integer.parseInt(port);
         } catch (NumberFormatException e) {
             throw new ValidationException(getResources().getString(R.string.validation_invalid_port));
         }
+        */
 
         try {
             "".getBytes(charset);
@@ -441,11 +446,11 @@ public class AddServerActivity extends ActionBarActivity implements OnClickListe
         }
 
         if (ident.trim().equals("")) {
-            throw new ValidationException(getResources().getString(R.string.validation_blank_ident));
+            //throw new ValidationException(getResources().getString(R.string.validation_blank_ident));
         }
 
         if (realname.trim().equals("")) {
-            throw new ValidationException(getResources().getString(R.string.validation_blank_realname));
+            //throw new ValidationException(getResources().getString(R.string.validation_blank_realname));
         }
 
         // RFC 1459:  <nick> ::= <letter> { <letter> | <number> | <special> }
