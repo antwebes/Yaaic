@@ -52,11 +52,12 @@ import org.yaaic.model.Status;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
+import android.util.Log;
 
 /**
  * Add a new server to the list
  *
- * @author Sebastian Kaspari <sebastian@yaaic.org>
+ * @author Sebastian Kaspari <se import android.util.Log;bastian@yaaic.org>
  */
 public class AddServerActivity extends ActionBarActivity implements OnClickListener
 {
@@ -81,10 +82,16 @@ public class AddServerActivity extends ActionBarActivity implements OnClickListe
 
         setContentView(R.layout.activity_add_server);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.addView(LayoutInflater.from(this).inflate(R.layout.item_done_discard, toolbar, false));
+        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //toolbar.addView(LayoutInflater.from(this).inflate(R.layout.item_done_discard, toolbar, false));
 
-        setSupportActionBar(toolbar);
+        //setSupportActionBar(toolbar);
+
+        // If I include the below bit, then the DrawerToggle doesn't function
+        // I don't know how to switch it back and forth
+
+
+
 
         authentication = new Authentication();
         aliases = new ArrayList<String>();
@@ -95,6 +102,7 @@ public class AddServerActivity extends ActionBarActivity implements OnClickListe
         findViewById(R.id.channels).setOnClickListener(this);
         findViewById(R.id.commands).setOnClickListener(this);
         findViewById(R.id.authentication).setOnClickListener(this);
+        findViewById(R.id.save).setOnClickListener(this);
 
         Spinner spinner = (Spinner) findViewById(R.id.charset);
         String[] charsets = getResources().getStringArray(R.array.charsets);
@@ -199,6 +207,9 @@ public class AddServerActivity extends ActionBarActivity implements OnClickListe
     public void onClick(View v)
     {
         switch (v.getId()) {
+            case R.id.save:
+                this.onSave(v);
+                break;
             case R.id.aliases:
                 Intent aliasIntent = new Intent(this, AddAliasActivity.class);
                 aliasIntent.putExtra(Extra.ALIASES, aliases);
@@ -232,9 +243,11 @@ public class AddServerActivity extends ActionBarActivity implements OnClickListe
         finish();
     }
 
+
     /**
      * Try to save server.
      */
+
     public void onSave(View view) {
         try {
             validateServer();
