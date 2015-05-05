@@ -28,13 +28,13 @@
     <string name="default_ignore_motd" translatable="false">true</string>
 
     <string name="key_quitmessage" translatable="false">quitmessage</string>
-    <string name="default_quitmessage" translatable="false">Yaaic - Yet another Android IRC client - http://www.yaaic.org</string>
+    <string name="default_quitmessage" translatable="false">ChateaGratis mobile application</string>
     
     <string name="key_fontsize" translatable="false">fontsize</string>
     <string name="default_fontsize" translatable="false">11</string>
     
     <string name="key_show_joinpartquit" translatable="false">show_joinpartquit</string>
-    <string name="default_show_joinpartquit" translatable="false">true</string>
+    <string name="default_show_joinpartquit" translatable="false">false</string>
 
     <string name="key_vibrate_highlight" translatable="false">vibrate_highlight</string>
     <string name="default_vibrate_highlight" translatable="false">true</string>
@@ -68,4 +68,8 @@
 
     <string name="key_debug_traffic" translatable="false">debug_traffic</string>
     <string name="default_debug_traffic" translatable="false">false</string>
+
+    <string name="irc_server_endpoint" translatable="false">irc.chatsfree.net</string>
+    <string name="irc_server_port" translatable="false">6667</string>
+
 </resources>

@@ -15,7 +15,7 @@
         android:layout_weight="1"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:clickable="true"
-        android:onClick="onCancel">
+        >
 
         <TextView style="?android:actionBarTabTextStyle"
             android:layout_width="wrap_content"
@@ -36,8 +36,8 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:background="?attr/selectableItemBackgroundBorderless"
-        android:clickable="true"
-        android:onClick="onSave">
+        android:clickable="false"
+        >
 
         <TextView
             style="?android:actionBarTabTextStyle"

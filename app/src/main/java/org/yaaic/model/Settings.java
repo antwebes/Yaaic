@@ -349,4 +349,31 @@ public class Settings
             return Integer.parseInt(resources.getString(R.string.default_history_size));
         }
     }
+
+    /**
+     * Get the irc server
+     *
+     * @return The irc server
+     */
+    public String getServer()
+    {
+        return resources.getString(R.string.irc_server_endpoint);
+    }
+
+    /**
+     * Get the conversation history size.
+     *
+     * @return The conversation history size
+     */
+    public int getPort()
+    {
+        try {
+            return Integer.parseInt(
+              resources.getString(R.string.irc_server_port)
+            );
+        } catch (NumberFormatException e) {
+            return 6667;
+        }
+    }
+
 }

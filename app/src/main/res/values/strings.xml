@@ -58,7 +58,7 @@
     <string name="channel_add_description">These channels will be automatically joined after connect.</string>
     <string name="command_add_description">These commands will be executed after connect.</string>
 
-    <string name="auth_description">Yaaic will authenticate you with these services after connect.</string>
+    <string name="auth_description">Chat will authenticate you with these services after connect.</string>
     <string name="auth_nickserv">Authenticate with Nickserv</string>
     <string name="auth_nickserv_password">Nickserv password</string>
     <string name="auth_sasl">Authenticate via SASL</string>
@@ -124,7 +124,7 @@
     <string name="command_desc_voice">Give a user voice status</string>
     <string name="command_desc_whois">Get information about a user</string>
 
-    <string name="notification_running">Yaaic is running</string>
+    <string name="notification_running">Chat is running</string>
     <string name="notification_not_connected">Not connected</string>
     <string name="notification_connected">Connected to %1$s</string>
     <string name="notification_disconnected">Disconnected from %1$s</string>
@@ -246,4 +246,5 @@
     <string name="minutes_15">15 minutes</string>
     <string name="minutes_20">20 minutes</string>
     <string name="minutes_30">30 minutes</string>
+
 </resources>

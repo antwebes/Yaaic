@@ -20,6 +20,7 @@ along with Yaaic.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.yaaic.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -36,6 +37,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -47,6 +49,7 @@ import org.yaaic.model.Authentication;
 import org.yaaic.model.Extra;
 import org.yaaic.model.Identity;
 import org.yaaic.model.Server;
+import org.yaaic.model.Settings;
 import org.yaaic.model.Status;
 
 import java.io.UnsupportedEncodingException;
@@ -72,6 +75,7 @@ public class AddServerActivity extends ActionBarActivity implements OnClickListe
     private ArrayList<String> channels;
     private ArrayList<String> commands;
 
+
     /**
      * On create
      */
@@ -82,14 +86,16 @@ public class AddServerActivity extends ActionBarActivity implements OnClickListe
 
         setContentView(R.layout.activity_add_server);
 
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //toolbar.addView(LayoutInflater.from(this).inflate(R.layout.item_done_discard, toolbar, false));
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        //setSupportActionBar(toolbar);
+        View v =LayoutInflater.from(this).inflate(R.layout.item_done_discard, toolbar, false);
+
+        toolbar.addView(v);
+
+        setSupportActionBar(toolbar);
 
         // If I include the below bit, then the DrawerToggle doesn't function
         // I don't know how to switch it back and forth
-
 
 
 
@@ -102,7 +108,19 @@ public class AddServerActivity extends ActionBarActivity implements OnClickListe
         findViewById(R.id.channels).setOnClickListener(this);
         findViewById(R.id.commands).setOnClickListener(this);
         findViewById(R.id.authentication).setOnClickListener(this);
-        findViewById(R.id.save).setOnClickListener(this);
+        v.findViewById(R.id.actionbar_discard).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onCancel(v);
+            }
+        });
+
+        v.findViewById(R.id.actionbar_done).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onSave(v);
+            }
+        });
 
         Spinner spinner = (Spinner) findViewById(R.id.charset);
         String[] charsets = getResources().getStringArray(R.array.charsets);
@@ -207,9 +225,6 @@ public class AddServerActivity extends ActionBarActivity implements OnClickListe
     public void onClick(View v)
     {
         switch (v.getId()) {
-            case R.id.save:
-                this.onSave(v);
-                break;
             case R.id.aliases:
                 Intent aliasIntent = new Intent(this, AddAliasActivity.class);
                 aliasIntent.putExtra(Extra.ALIASES, aliases);
@@ -341,9 +356,12 @@ public class AddServerActivity extends ActionBarActivity implements OnClickListe
      */
     private Server getServerFromView()
     {
+        Settings settings = new Settings(this);
+
+
         //String title = ((EditText) findViewById(R.id.title)).getText().toString().trim();
-        String host = "fresa.chatsfree.net"; //((EditText) findViewById(R.id.host)).getText().toString().trim();
-        int port = 6667; //Integer.parseInt(((EditText) findViewById(R.id.port)).getText().toString().trim());
+        String host =  settings.getServer();
+        int port = settings.getPort();
         String password = ((EditText) findViewById(R.id.password)).getText().toString().trim();
         String charset = "UTF-8"; //((Spinner) findViewById(R.id.charset)).getSelectedItem().toString();
         Boolean useSSL = false; //((CheckBox) findViewById(R.id.useSSL)).isChecked();

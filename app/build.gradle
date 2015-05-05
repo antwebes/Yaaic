@@ -5,11 +5,11 @@ android {
     buildToolsVersion '22.0.0'
 
     defaultConfig {
-        applicationId "org.yaaic"
+        applicationId "net.chateagratis"
         minSdkVersion 19
         targetSdkVersion 22
         versionCode 14
-        versionName "2.0"
+        versionName "0.1"
     }
     buildTypes {
         release {

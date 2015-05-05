@@ -29,6 +29,8 @@ along with Yaaic.  If not, see <http://www.gnu.org/licenses/>.
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <include layout="@layout/item_toolbar" />
+
         <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -39,13 +41,6 @@ along with Yaaic.  If not, see <http://www.gnu.org/licenses/>.
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Save"
-                    android:id="@+id/save"
-                    android:layout_gravity="right" />
 
                 <TextView
                     android:layout_width="fill_parent"
@@ -195,6 +190,7 @@ along with Yaaic.  If not, see <http://www.gnu.org/licenses/>.
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="3dip"
+                    android:visibility="gone"
                     android:text="@string/on_connect" />
 
                 <Button
@@ -207,6 +203,7 @@ along with Yaaic.  If not, see <http://www.gnu.org/licenses/>.
                 <Button
                     android:id="@+id/channels"
                     android:layout_width="fill_parent"
+                    android:visibility="gone"
                     android:layout_height="wrap_content"
                     android:text="@string/channels" />
 
@@ -214,6 +211,7 @@ along with Yaaic.  If not, see <http://www.gnu.org/licenses/>.
                     android:id="@+id/commands"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:text="@string/commands" />
                 <!-- ############################################################################ -->
                 <TextView
