@@ -293,12 +293,22 @@ public class MainActivity extends AppCompatActivity implements YaaicActivity, Se
         Runtime.getRuntime().addShutdownHook(new Thread() {
             public void run() {
                 // shutdown logic
+                for (final Server server : Yaaic.getInstance().getAutoconnectServersAsArrayList()) {
+
+                    if (binder != null && server.getStatus() == Status.CONNECTED) {
+                        server.clearConversations();
+                        server.setStatus(Status.DISCONNECTED);
+                        server.setMayReconnect(false);
+                        binder.getService().getConnection(server.getId()).quitServer();
+                    }
+                }
+
                 binder.getService().onDestroy();
             }
         });
 
-        System.exit(0);
         this.onDestroy();
+        System.exit(0);
     }
 
  /*
@@ -329,12 +339,16 @@ public class MainActivity extends AppCompatActivity implements YaaicActivity, Se
     }
 
     public void autoConnectServers() {
+        int connected = 0;
         for (final Server server : Yaaic.getInstance().getAutoconnectServersAsArrayList()) {
 
            if (binder != null && server.getStatus() == Status.DISCONNECTED) {
                 binder.connect(server);
                 server.setStatus(Status.CONNECTING);
+                connected++;
            }
+
+           if(connected == 1) onServerSelected(server);
         }
     }
 
