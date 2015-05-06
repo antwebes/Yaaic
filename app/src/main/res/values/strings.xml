@@ -249,5 +249,6 @@
 
     <string name="advanced_label">Advanced</string>
     <string name="manage_accounts_label">Manage Accounts</string>
+    <string name="close_application">Close Application</string>
 
 </resources>

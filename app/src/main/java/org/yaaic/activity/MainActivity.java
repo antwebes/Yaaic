@@ -277,9 +277,25 @@ public class MainActivity extends AppCompatActivity implements YaaicActivity, Se
                     onOverview(v);
                 }
 
+                if(getString(R.string.close_application) == clicked) {
+                    onExit();
+                }
+
                 return false;
             }
         });
+    }
+
+    private void onExit() {
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            public void run() {
+                // shutdown logic
+
+            }
+        });
+
+        System.exit(0);
+        this.onDestroy();
     }
 
  /*
@@ -296,7 +312,7 @@ public class MainActivity extends AppCompatActivity implements YaaicActivity, Se
         // Adding child data
         List<String> myAccount = new ArrayList<String>();
         myAccount.add(getString(R.string.manage_accounts_label));
-        myAccount.add("Discconnect");
+        myAccount.add(getString(R.string.close_application));
 
 
         List<String> settings = new ArrayList<String>();
