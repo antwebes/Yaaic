@@ -370,17 +370,11 @@ public class AddServerActivity extends ActionBarActivity implements OnClickListe
         String host =  settings.getServer();
         int port = settings.getPort();
         String password = ((EditText) findViewById(R.id.password)).getText().toString().trim();
-<<<<<<< HEAD
         String charset = "UTF-8"; //((Spinner) findViewById(R.id.charset)).getSelectedItem().toString();
         Boolean useSSL = false; //((CheckBox) findViewById(R.id.useSSL)).isChecked();
 
-        // not in use yet
-        //boolean autoConnect = ((CheckBox) findViewById(R.id.autoconnect)).isChecked();
-=======
-        String charset = ((Spinner) findViewById(R.id.charset)).getSelectedItem().toString();
-        Boolean useSSL = ((CheckBox) findViewById(R.id.useSSL)).isChecked();
         Boolean autoConnect = ((CheckBox) findViewById(R.id.autoconnect)).isChecked();
->>>>>>> auto_connect
+
 
         Server server = new Server();
         server.setHost(host);

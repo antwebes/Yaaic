@@ -91,10 +91,7 @@ public class MainActivity extends AppCompatActivity implements YaaicActivity, Se
             onOverview(null);
         }
 
-<<<<<<< HEAD
         onCreateExpandableList();
-=======
->>>>>>> auto_connect
     }
 
     public void initializeToolbar() {
@@ -237,7 +234,6 @@ public class MainActivity extends AppCompatActivity implements YaaicActivity, Se
         binder = null;
     }
 
-<<<<<<< HEAD
 
     private void onCreateExpandableList() {
         expListView = (ExpandableListView) findViewById(R.id.lvExp);
@@ -332,8 +328,6 @@ public class MainActivity extends AppCompatActivity implements YaaicActivity, Se
         listDataChild.put(listDataHeader.get(1), settings);
     }
 
-
-=======
     public void autoConnectServers() {
         for (final Server server : Yaaic.getInstance().getAutoconnectServersAsArrayList()) {
 
@@ -343,5 +337,5 @@ public class MainActivity extends AppCompatActivity implements YaaicActivity, Se
            }
         }
     }
->>>>>>> auto_connect
+
 }
