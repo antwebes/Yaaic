@@ -49,6 +49,19 @@ import org.yaaic.model.Extra;
 import org.yaaic.model.Server;
 import org.yaaic.model.Status;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.OnChildClickListener;
+import android.widget.ExpandableListView.OnGroupClickListener;
+import android.widget.ExpandableListView.OnGroupCollapseListener;
+import android.widget.ExpandableListView.OnGroupExpandListener;
+import android.widget.Toast;
+
+import org.yaaic.adapter.ExpandableListAdapter;
+
+
 /**
  * The main activity of Yaaic. We'll add, remove and replace fragments here.
  */
@@ -57,6 +70,12 @@ public class MainActivity extends AppCompatActivity implements YaaicActivity, Se
     private Toolbar toolbar;
     private DrawerLayout drawer;
     private IRCBinder binder;
+
+
+    ExpandableListAdapter listAdapter;
+    ExpandableListView expListView;
+    List<String> listDataHeader;
+    HashMap<String, List<String>> listDataChild;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +89,8 @@ public class MainActivity extends AppCompatActivity implements YaaicActivity, Se
         if (savedInstanceState == null) {
             onOverview(null);
         }
+
+        onCreateExpandableList();
     }
 
     public void initializeToolbar() {
@@ -197,7 +218,7 @@ public class MainActivity extends AppCompatActivity implements YaaicActivity, Se
 
     @Override
     public void setToolbarTitle(String title) {
-        //toolbar.setTitle(title);
+        toolbar.setTitle(title);
     }
 
     @Override
@@ -209,4 +230,84 @@ public class MainActivity extends AppCompatActivity implements YaaicActivity, Se
     public void onServiceDisconnected(ComponentName name) {
         binder = null;
     }
+
+
+    private void onCreateExpandableList() {
+        expListView = (ExpandableListView) findViewById(R.id.lvExp);
+
+        // preparing list data
+        prepareListData();
+
+        listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
+
+        // setting list adapter
+        expListView.setAdapter(listAdapter);
+
+        // Listview Group click listener
+        expListView.setOnGroupClickListener(new OnGroupClickListener() {
+
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View v,
+                                        int groupPosition, long id) {
+                // Toast.makeText(getApplicationContext(),
+                // "Group Clicked " + listDataHeader.get(groupPosition),
+                // Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
+
+
+        // Listview on child click listener
+        expListView.setOnChildClickListener(new OnChildClickListener() {
+
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v,
+                                        int groupPosition, int childPosition, long id) {
+
+                String clicked = listDataChild.get(listDataHeader.get(groupPosition)).get(childPosition);
+                if(getString(R.string.about_label) == clicked) {
+                    onAbout(v);
+                }
+
+                if(getString(R.string.advanced_label) == clicked) {
+                    onSettings(v);
+                }
+
+                if(getString(R.string.manage_accounts_label) == clicked) {
+                    onOverview(v);
+                }
+
+                return false;
+            }
+        });
+    }
+
+ /*
+ * Preparing the list data
+ */
+    private void prepareListData() {
+        listDataHeader = new ArrayList<String>();
+        listDataChild = new HashMap<String, List<String>>();
+
+        // Adding child data
+        listDataHeader.add("My Account");
+        listDataHeader.add(getString(R.string.navigation_settings));
+
+        // Adding child data
+        List<String> myAccount = new ArrayList<String>();
+        myAccount.add(getString(R.string.manage_accounts_label));
+        myAccount.add("Discconnect");
+
+
+        List<String> settings = new ArrayList<String>();
+
+        settings.add(getString(R.string.advanced_label));
+        settings.add(getString(R.string.about_label));
+
+
+        listDataChild.put(listDataHeader.get(0), myAccount); // Header, Child data
+        listDataChild.put(listDataHeader.get(1), settings);
+    }
+
+
 }

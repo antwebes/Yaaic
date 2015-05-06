@@ -50,22 +50,9 @@ along with Yaaic.  If not, see <http://www.gnu.org/licenses/>.
             android:gravity="center_vertical"
             android:textColor="@color/abc_primary_text_material_dark"
             android:text="@string/app_name"
-            style="@android:style/TextAppearance.Material.Widget.ActionBar.Title"/>
+            />
 
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@drawable/navigation_item_background"
-            android:clickable="true"
-            android:fontFamily="sans-serif-medium"
-            android:gravity="center_vertical"
-            android:onClick="onOverview"
-            android:paddingLeft="16dp"
-            android:text="@string/navigation_overview"
-            android:drawableLeft="@drawable/ic_navigation_overview"
-            android:drawablePadding="4dp"
-            android:textSize="14sp" />
 
         <View
             android:layout_width="match_parent"
@@ -87,33 +74,12 @@ along with Yaaic.  If not, see <http://www.gnu.org/licenses/>.
             android:layout_marginTop="4dp"
             android:background="@color/divider" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@drawable/navigation_item_background"
-            android:clickable="true"
-            android:fontFamily="sans-serif-medium"
-            android:gravity="center_vertical"
-            android:onClick="onSettings"
-            android:drawableLeft="@drawable/ic_navigation_settings"
-            android:drawablePadding="4dp"
-            android:paddingLeft="16dp"
-            android:text="@string/navigation_settings"
-            android:textSize="14sp" />
+        <ExpandableListView
+            android:id="@+id/lvExp"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@drawable/navigation_item_background"
-            android:clickable="true"
-            android:fontFamily="sans-serif-medium"
-            android:gravity="center_vertical"
-            android:onClick="onAbout"
-            android:paddingLeft="16dp"
-            android:drawableLeft="@drawable/ic_navigation_about"
-            android:drawablePadding="4dp"
-            android:text="@string/navigation_about"
-            android:textSize="14sp" />
+
 
     </LinearLayout>
 

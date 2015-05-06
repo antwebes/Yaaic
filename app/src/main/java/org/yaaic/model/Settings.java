@@ -361,6 +361,15 @@ public class Settings
     }
 
     /**
+     * Get the irc default channel
+     *
+     * @return The irc default channel
+     */
+    public String getDefaultChannel()
+    {
+        return resources.getString(R.string.irc_default_channel);
+    }
+    /**
      * Get the conversation history size.
      *
      * @return The conversation history size

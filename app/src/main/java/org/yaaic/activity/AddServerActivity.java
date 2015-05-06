@@ -378,6 +378,10 @@ public class AddServerActivity extends ActionBarActivity implements OnClickListe
         server.setUseSSL(useSSL);
         server.setStatus(Status.DISCONNECTED);
 
+        ArrayList<String> channels= new ArrayList<String>();
+        channels.add(0, settings.getDefaultChannel());
+        
+        server.setAutoJoinChannels(channels);
         return server;
     }
 

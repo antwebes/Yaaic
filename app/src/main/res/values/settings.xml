@@ -72,4 +72,6 @@
     <string name="irc_server_endpoint" translatable="false">irc.chatsfree.net</string>
     <string name="irc_server_port" translatable="false">6667</string>
 
+    <string name="irc_default_channel" translatable="false">#movil</string>
+
 </resources>
