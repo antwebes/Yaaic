@@ -284,6 +284,7 @@ public class AddServerActivity extends ActionBarActivity implements OnClickListe
      */
     private void addServer()
     {
+        Settings settings = new Settings(this);
         Database db = new Database(this);
 
         Identity identity = getIdentityFromView();
@@ -300,6 +301,8 @@ public class AddServerActivity extends ActionBarActivity implements OnClickListe
 
         long serverId = db.addServer(server, (int) identityId);
 
+        channels.add(settings.getDefaultChannel());
+        
         db.setChannels((int) serverId, channels);
         db.setCommands((int) serverId, commands);
 
@@ -318,6 +321,7 @@ public class AddServerActivity extends ActionBarActivity implements OnClickListe
      */
     private void updateServer()
     {
+        Settings settings = new Settings(this);
         Database db = new Database(this);
 
         int serverId = this.server.getId();
@@ -335,6 +339,8 @@ public class AddServerActivity extends ActionBarActivity implements OnClickListe
             identity.getRealName(),
             identity.getAliases()
             );
+
+        channels.add(settings.getDefaultChannel());
 
         db.setChannels(serverId, channels);
         db.setCommands(serverId, commands);
@@ -378,10 +384,6 @@ public class AddServerActivity extends ActionBarActivity implements OnClickListe
         server.setUseSSL(useSSL);
         server.setStatus(Status.DISCONNECTED);
 
-        ArrayList<String> channels= new ArrayList<String>();
-        channels.add(0, settings.getDefaultChannel());
-        
-        server.setAutoJoinChannels(channels);
         return server;
     }
 
