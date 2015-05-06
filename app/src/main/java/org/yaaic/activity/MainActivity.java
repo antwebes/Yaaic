@@ -290,7 +290,7 @@ public class MainActivity extends AppCompatActivity implements YaaicActivity, Se
         Runtime.getRuntime().addShutdownHook(new Thread() {
             public void run() {
                 // shutdown logic
-
+                binder.getService().onDestroy();
             }
         });
 
