@@ -169,7 +169,7 @@
     <string name="message_not_connected">Not connected</string>
     <string name="message_users_on_chan">Users on %1$s:</string>
 
-    <string name="user_action_reply">Reply</string>
+    <string name="user_action_reply">Reply on Channel</string>
     <string name="user_action_query">Query</string>
     <string name="user_action_op">Op</string>
     <string name="user_action_deop">DeOp</string>
@@ -250,5 +250,8 @@
     <string name="advanced_label">Advanced</string>
     <string name="manage_accounts_label">Manage Accounts</string>
     <string name="close_application">Close Application</string>
+    <string name="register_label">Register</string>
+
+    <string name="nickserv" translatable="false">nick</string>
 
 </resources>

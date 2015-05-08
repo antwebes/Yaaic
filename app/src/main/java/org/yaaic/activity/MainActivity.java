@@ -20,11 +20,13 @@ along with Yaaic.  If not, see <http://www.gnu.org/licenses/>.
 */
 package org.yaaic.activity;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.widget.DrawerLayout;
@@ -36,6 +38,10 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.webkit.WebChromeClient;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -219,7 +225,7 @@ public class MainActivity extends AppCompatActivity implements YaaicActivity, Se
 
     @Override
     public void setToolbarTitle(String title) {
-        toolbar.setTitle(title);
+        //toolbar.setTitle(title);
     }
 
     @Override
@@ -284,9 +290,19 @@ public class MainActivity extends AppCompatActivity implements YaaicActivity, Se
                     onExit();
                 }
 
+                if(getString(R.string.register_label) == clicked) {
+                    onRegister();
+                }
+
                 return false;
             }
         });
+    }
+
+    private void onRegister() {
+        drawer.closeDrawers();
+
+        startActivity(new Intent(this, RegisterActivity.class));
     }
 
     private void onExit() {
@@ -325,6 +341,7 @@ public class MainActivity extends AppCompatActivity implements YaaicActivity, Se
         // Adding child data
         List<String> myAccount = new ArrayList<String>();
         myAccount.add(getString(R.string.manage_accounts_label));
+        myAccount.add(getString(R.string.register_label));
         myAccount.add(getString(R.string.close_application));
 
 
@@ -340,16 +357,24 @@ public class MainActivity extends AppCompatActivity implements YaaicActivity, Se
 
     public void autoConnectServers() {
         int connected = 0;
-        for (final Server server : Yaaic.getInstance().getAutoconnectServersAsArrayList()) {
+        ArrayList<Server> servers = Yaaic.getInstance().getAutoconnectServersAsArrayList();
+        if(servers.size() == 0) {
+            drawer.closeDrawers();
 
-           if (binder != null && server.getStatus() == Status.DISCONNECTED) {
-                binder.connect(server);
-                server.setStatus(Status.CONNECTING);
-                connected++;
-           }
+            startActivity(new Intent(this, AddServerActivity.class));
+        } else {
+            for (final Server server : servers) {
 
-           if(connected == 1) onServerSelected(server);
+                if (binder != null && server.getStatus() == Status.DISCONNECTED) {
+                    binder.connect(server);
+                    server.setStatus(Status.CONNECTING);
+                    connected++;
+                }
+
+                if (connected == 1) onServerSelected(server);
+            }
         }
+
     }
 
 }

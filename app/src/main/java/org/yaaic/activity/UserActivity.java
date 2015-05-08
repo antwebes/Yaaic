@@ -22,7 +22,10 @@ package org.yaaic.activity;
 
 import org.yaaic.R;
 import org.yaaic.adapter.UserActionListAdapter;
+import org.yaaic.model.Broadcast;
+import org.yaaic.model.Conversation;
 import org.yaaic.model.Extra;
+import org.yaaic.model.Query;
 
 import android.app.ListActivity;
 import android.content.Intent;

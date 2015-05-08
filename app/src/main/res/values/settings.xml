@@ -73,5 +73,6 @@
     <string name="irc_server_port" translatable="false">6667</string>
 
     <string name="irc_default_channel" translatable="false">#chatsfree</string>
+    <string name="api_user_is_register_endpoint"  translatable="false">https://www.chatsfree.net/api/users/username-available?username=</string>
 
 </resources>

@@ -42,36 +42,36 @@ public class UserActionListAdapter extends BaseAdapter
      * Action IDs
      */
     private final int[] actions = {
-        User.ACTION_REPLY,
         User.ACTION_QUERY,
-        User.ACTION_OP,
-        User.ACTION_DEOP,
-        User.ACTION_VOICE,
-        User.ACTION_DEVOICE,
-        User.ACTION_KICK,
-        User.ACTION_BAN
+        User.ACTION_REPLY,
+        //User.ACTION_OP,
+        //User.ACTION_DEOP,
+        //User.ACTION_VOICE,
+        //User.ACTION_DEVOICE,
+        //User.ACTION_KICK,
+        //User.ACTION_BAN
     };
 
     /**
      * Labels for actions
      */
     private final int[] labels = {
-        R.string.user_action_reply,
         R.string.user_action_query,
-        R.string.user_action_op,
-        R.string.user_action_deop,
-        R.string.user_action_voice,
-        R.string.user_action_devoice,
-        R.string.user_action_kick,
-        R.string.user_action_ban
+        R.string.user_action_reply,
+        //R.string.user_action_op,
+        //R.string.user_action_deop,
+        //R.string.user_action_voice,
+        //R.string.user_action_devoice,
+        //R.string.user_action_kick,
+        //R.string.user_action_ban
     };
 
     /**
      * Icons for actions
      */
     private final int[] icons = {
-        R.drawable.action_reply,
         R.drawable.action_query,
+        R.drawable.action_reply,
         R.drawable.action_op,
         R.drawable.action_deop,
         R.drawable.action_voice,

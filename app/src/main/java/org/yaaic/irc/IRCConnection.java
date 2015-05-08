@@ -32,6 +32,7 @@ import org.jibble.pircbot.PircBot;
 import org.jibble.pircbot.User;
 import org.yaaic.R;
 import org.yaaic.Yaaic;
+import org.yaaic.activity.NickServActivity;
 import org.yaaic.command.CommandParser;
 import org.yaaic.model.Broadcast;
 import org.yaaic.model.Channel;
@@ -42,7 +43,9 @@ import org.yaaic.model.Server;
 import org.yaaic.model.ServerInfo;
 import org.yaaic.model.Status;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.util.Log;
 
 /**
@@ -140,11 +143,13 @@ public class IRCConnection extends PircBot
     @Override
     protected void onVersion(String sourceNick, String sourceLogin,    String sourceHostname, String target)
     {
+        /*
         this.sendRawLine(
             "NOTICE " + sourceNick + " :\u0001VERSION " +
             "Yaaic - Yet Another Android IRC Client - http://www.yaaic.org" +
             "\u0001"
         );
+        */
     }
 
     /**
@@ -644,12 +649,23 @@ public class IRCConnection extends PircBot
         }
     }
 
+    private void handleServiceMessage(String sender, String login, String hostname, String target, String text) {
+        Log.v("Command", sender + " " + login + " " + hostname +  " " +  target + " " +text);
+
+    }
+
     /**
      * On Private Message
      */
     @Override
     protected void onPrivateMessage(String sender, String login, String hostname, String target, String text)
     {
+        String nickserv = service.getString(R.string.nickserv);
+        if(sender.trim().toLowerCase().equals(nickserv.trim().toLowerCase())) {
+            handleServiceMessage(sender, login, hostname, target, text);
+            return;
+        }
+
         Message message = new Message("<" + sender + "> " + text);
         String queryNick = sender;
 

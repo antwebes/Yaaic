@@ -21,8 +21,12 @@ along with Yaaic.  If not, see <http://www.gnu.org/licenses/>.
 package org.yaaic.activity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -39,8 +43,20 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
+import org.springframework.web.client.RestTemplate;
 import org.yaaic.R;
 import org.yaaic.Yaaic;
 import org.yaaic.db.Database;
@@ -48,14 +64,19 @@ import org.yaaic.exception.ValidationException;
 import org.yaaic.model.Authentication;
 import org.yaaic.model.Extra;
 import org.yaaic.model.Identity;
+import org.yaaic.model.RegisterValidation;
 import org.yaaic.model.Server;
 import org.yaaic.model.Settings;
 import org.yaaic.model.Status;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.regex.Pattern;
 import android.util.Log;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Add a new server to the list
@@ -75,7 +96,9 @@ public class AddServerActivity extends ActionBarActivity implements OnClickListe
     private ArrayList<String> channels;
     private ArrayList<String> commands;
 
+    ProgressDialog mDialog;
 
+    private Context context;
     /**
      * On create
      */
@@ -83,6 +106,8 @@ public class AddServerActivity extends ActionBarActivity implements OnClickListe
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        context = this.getApplicationContext();
 
         setContentView(R.layout.activity_add_server);
 
@@ -268,6 +293,13 @@ public class AddServerActivity extends ActionBarActivity implements OnClickListe
         try {
             validateServer();
             validateIdentity();
+
+        } catch(ValidationException e) {
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void onSaveDone() {
             if (server == null) {
                 addServer();
             } else {
@@ -275,9 +307,6 @@ public class AddServerActivity extends ActionBarActivity implements OnClickListe
             }
             setResult(RESULT_OK);
             finish();
-        } catch(ValidationException e) {
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
     }
 
     /**
@@ -493,5 +522,100 @@ public class AddServerActivity extends ActionBarActivity implements OnClickListe
         if (!identPattern.matcher(ident).matches()) {
             throw new ValidationException(getResources().getString(R.string.validation_invalid_ident));
         }
+
+        if(((EditText) findViewById(R.id.password)).getVisibility() != View.VISIBLE) {
+            validateRegisterNick(nickname);
+        } else {
+            onSaveDone();
+        }
+
+
+    }
+
+    private void validateRegisterNick(String nickname) {
+        mDialog = new ProgressDialog(this);
+        mDialog.setTitle("Check nickname");
+        mDialog.setMessage("Check if nickname is register...");
+        mDialog.show();
+
+        new RegisterValidator(nickname).execute();
+
+    }
+
+     public class RegisterValidator extends AsyncTask<Void, Void, RegisterValidation> {
+        private String nick;
+
+        public RegisterValidator(String nick) {
+            this.nick = nick;
+        }
+
+        @Override
+        protected RegisterValidation doInBackground(Void... params) {
+            final String url = getString(R.string.api_user_is_register_endpoint) + this.nick;
+            try {
+                RestTemplate restTemplate = new RestTemplate();
+                restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+
+                HttpHeaders headers = new HttpHeaders();
+                headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+                headers.setContentType(MediaType.APPLICATION_JSON);
+                headers.add("Cache-Control:",  "no-cache, private");
+                headers.set("Connection", "Close");
+
+                Log.i("ApiCheck","Call Verify");
+
+                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+
+                HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
+
+                ResponseEntity<RegisterValidation> validation = restTemplate.exchange(url, HttpMethod.GET, entity, RegisterValidation.class);
+
+
+                return validation.getBody();
+            }catch(HttpClientErrorException e) {
+                if(e.getStatusCode().toString().equals("400")) {
+                    Log.e("ApiError", e.getMessage(), e);
+                    ObjectMapper mapper = new ObjectMapper();
+                    try {
+                        RegisterValidation validation = mapper.readValue(e.getResponseBodyAsString(), RegisterValidation.class);
+                        Log.i("ApiCheck","400 user already register");
+                        return validation;
+                    } catch (IOException e1) {
+                        Log.e("ApiError", e1.getMessage(), e1);
+                        return null;
+                    }
+                }
+            } catch (HttpServerErrorException e) {
+                Log.e("ApiError", e.getMessage(), e);
+            } catch (Exception e) {
+                Log.e("ApiError", e.getMessage(), e);
+            }
+
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(RegisterValidation validation) {
+            mDialog.dismiss();
+
+            if(validation == null) return;
+
+            if (validation.isValid()) {
+                onSaveDone();
+                return;
+            }
+
+            if(validation.getCode() == 34) {
+                Log.i("ApiCheck","Nick register");
+
+                ((EditText) findViewById(R.id.password)).setVisibility(View.VISIBLE);
+                ((TextView) findViewById(R.id.password_label)).setVisibility(View.VISIBLE);
+                ((EditText) findViewById(R.id.password)).setError("Nick register, set password or select other");
+            }
+
+        }
     }
 }
+
+
