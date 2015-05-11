@@ -180,4 +180,9 @@ public class OverviewFragment extends Fragment implements ServerListener, Server
     public void onStatusUpdate() {
         adapter.loadServers();
     }
+
+    @Override
+    public void onNickservInitialize() {
+        //noting to do...
+    }
 }

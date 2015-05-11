@@ -39,6 +39,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.text.method.TextKeyListener;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -56,6 +57,7 @@ import android.widget.Toast;
 import org.yaaic.R;
 import org.yaaic.Yaaic;
 import org.yaaic.activity.JoinActivity;
+import org.yaaic.activity.NickServActivity;
 import org.yaaic.activity.UserActivity;
 import org.yaaic.activity.UsersActivity;
 import org.yaaic.activity.YaaicActivity;
@@ -96,6 +98,9 @@ public class ConversationFragment extends Fragment implements ServerListener, Co
     private static final int REQUEST_CODE_USERS = 2;
     private static final int REQUEST_CODE_USER = 3;
     private static final int REQUEST_CODE_NICK_COMPLETION= 4;
+
+    //use last numbers for yaaic updates
+    private static final int REQUEST_NICK_CHANGE= 99;
 
     private int serverId;
     private Server server;
@@ -302,6 +307,7 @@ public class ConversationFragment extends Fragment implements ServerListener, Co
 
         serverReceiver = new ServerReceiver(this);
         getActivity().registerReceiver(serverReceiver, new IntentFilter(Broadcast.SERVER_UPDATE));
+        getActivity().registerReceiver(serverReceiver, new IntentFilter(Broadcast.NICKSERV_INITIALIZE));
 
         super.onResume();
 
@@ -556,6 +562,16 @@ public class ConversationFragment extends Fragment implements ServerListener, Co
         // No implementation
     }
 
+    @Override
+    public void onNickservInitialize() {
+        Log.v("NickInitialize", "Initialize Nickserv");
+        Intent i = new Intent(getActivity(), NickServActivity.class);
+        i.putExtra("server_id", server.getId());
+        i.putExtra("nick", binder.getService().getConnection(serverId).getNick());
+
+        startActivityForResult(i, REQUEST_NICK_CHANGE);
+    }
+
     /**
      * On server status update
      */
@@ -713,6 +729,16 @@ public class ConversationFragment extends Fragment implements ServerListener, Co
                 }.start();
 
                 break;
+            case REQUEST_NICK_CHANGE:
+                String nick = data.getExtras().getString("nick");
+                String password = data.getExtras().getString("password");
+
+                if(nick != "" && nick != null) {
+                    binder.getService().getConnection(serverId).sendRawLine("PRIVMSG NICK IDENTIFY " + nick + " " + password);
+                    binder.getService().getConnection(serverId).changeNick(nick);
+                }
+
+            break;
         }
     }
 

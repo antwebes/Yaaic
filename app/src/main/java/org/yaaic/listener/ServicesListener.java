@@ -21,16 +21,25 @@ along with Yaaic.  If not, see <http://www.gnu.org/licenses/>.
 package org.yaaic.listener;
 
 /**
- * Listener for changes regarding a server
- *
- * @author Sebastian Kaspari
+ * Listener for conversations
+ * 
+ * @author Sebastian Kaspari <sebastian@yaaic.org>
  */
-public interface ServerListener
+public interface ServicesListener
 {
     /**
-     * On server status update (disconnected, connecting, connected)
+     * On new conversation created (for given target)
+     *
+     * @param target
      */
-    public void onStatusUpdate();
+    public void onNickservMessage(String target);
 
-    public void onNickservInitialize();
+
+    /**
+     * On new conversation created (for given target)
+     *
+     * @param target
+     */
+    public void onNickservInitialize(String target);
+
 }

@@ -254,4 +254,6 @@
 
     <string name="nickserv" translatable="false">nick</string>
 
+    <string name="change_nick">Change Nick</string>
+
 </resources>

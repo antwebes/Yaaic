@@ -37,6 +37,9 @@ public abstract class Broadcast
     public static final String CONVERSATION_REMOVE    = "org.yaaic.conversation.remove";
     public static final String CONVERSATION_TOPIC    = "org.yaaic.conversation.topic";
 
+    public static final String NICKSERV_MESSAGE = "net.chateagratis.nickserv_message";
+    public static final String NICKSERV_INITIALIZE = "net.chateagratis.nickserv_initialize";
+
     /**
      * Create an Intent for conversation broadcasting
      * 
@@ -51,6 +54,25 @@ public abstract class Broadcast
 
         intent.putExtra(Extra.SERVER, serverId);
         intent.putExtra(Extra.CONVERSATION, conversationName);
+
+        return intent;
+    }
+
+
+    /**
+     * Create an Intent for conversation broadcasting
+     *
+     * @param broadcastType The type of the broadcast, some constant of Broadcast.*
+     * @param serverId The id of the server
+     * @param message The unique name of the conversation
+     * @return  The created Intent
+     */
+    public static Intent createServicesIntent(String broadcastType, int serverId, String message)
+    {
+        Intent intent = new Intent(broadcastType);
+
+        intent.putExtra(Extra.SERVER, serverId);
+        intent.putExtra(Extra.MESSAGE, message);
 
         return intent;
     }

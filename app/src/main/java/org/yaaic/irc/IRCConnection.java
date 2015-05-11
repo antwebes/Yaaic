@@ -24,6 +24,7 @@ package org.yaaic.irc;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Vector;
 import java.util.regex.Pattern;
 
@@ -32,6 +33,8 @@ import org.jibble.pircbot.PircBot;
 import org.jibble.pircbot.User;
 import org.yaaic.R;
 import org.yaaic.Yaaic;
+import org.yaaic.YaaicApplication;
+import org.yaaic.activity.MainActivity;
 import org.yaaic.activity.NickServActivity;
 import org.yaaic.command.CommandParser;
 import org.yaaic.model.Broadcast;
@@ -649,10 +652,36 @@ public class IRCConnection extends PircBot
         }
     }
 
-    private void handleServiceMessage(String sender, String login, String hostname, String target, String text) {
-        Log.v("Command", sender + " " + login + " " + hostname +  " " +  target + " " +text);
+    private void addNickservMessage(String message) {
+        // set
+        List<String> data = ((YaaicApplication) service.getApplication()).getNickservData();
+        data.add(message);
 
+        ((YaaicApplication) service.getApplication()).setNickservData(data);
     }
+
+    private void handleServiceMessage(String sender, String login, String hostname, String target, String text) {
+        Log.v("Nickserv", sender + " " + login + " " + hostname +  " " +  target + " " +text);
+        if(text.contains("Este nick está registrado y protegido")) {
+            Log.v("Nickserv", "Nick registered....");
+            List<String> data = new ArrayList<>();
+            ((YaaicApplication) service.getApplication()).setNickservData(data);
+
+            addNickservMessage(text);
+            Intent sIntent = Broadcast.createServerIntent(Broadcast.NICKSERV_INITIALIZE, server.getId());
+            service.sendBroadcast(sIntent);
+
+        } else {
+            addNickservMessage(text);
+            Intent intent = Broadcast.createConversationIntent(
+                    Broadcast.NICKSERV_MESSAGE,
+                    server.getId(),
+                    text
+            );
+            service.sendBroadcast(intent);
+        }
+    }
+
 
     /**
      * On Private Message

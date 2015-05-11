@@ -22,14 +22,28 @@ package org.yaaic;
 
 import android.app.Application;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Application implementation for Yaaic.
  */
 public class YaaicApplication extends Application {
+
+    private List <String> nickservData = new ArrayList<>();
+
     @Override
     public void onCreate() {
         super.onCreate();
 
         Yaaic.getInstance().loadServers(this);
+    }
+
+    public List<String> getNickservData() {
+        return nickservData;
+    }
+
+    public void setNickservData(List<String> nickservData) {
+        this.nickservData = nickservData;
     }
 }

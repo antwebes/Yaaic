@@ -359,9 +359,12 @@ public class AddServerActivity extends ActionBarActivity implements OnClickListe
 
         Server server = getServerFromView();
         server.setAuthentication(authentication);
-        db.updateServer(serverId, server, identityId);
 
         Identity identity = getIdentityFromView();
+        server.setTitle(identity.getNickname());
+
+        db.updateServer(serverId, server, identityId);
+
         db.updateIdentity(
             identityId,
             identity.getNickname(),

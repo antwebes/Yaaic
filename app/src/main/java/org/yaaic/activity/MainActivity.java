@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements YaaicActivity, Se
     private IRCBinder binder;
 
 
+
     ExpandableListAdapter listAdapter;
     ExpandableListView expListView;
     List<String> listDataHeader;
@@ -376,5 +377,4 @@ public class MainActivity extends AppCompatActivity implements YaaicActivity, Se
         }
 
     }
-
 }

@@ -29,29 +29,45 @@ along with Yaaic.  If not, see <http://www.gnu.org/licenses/>.
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nickname"
-        android:id="@+id/textView" />
+        android:text="@string/nickname"
+        android:id="@+id/nickserv_label" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editText" />
+        android:id="@+id/nickserv_field" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/textView2" />
+        android:text="@string/server_password"
+        android:id="@+id/nickserv_label_password" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editText2" />
+        android:password="true"
+        android:id="@+id/nickserv_password_field" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Button"
-        android:id="@+id/button"
-        android:layout_gravity="center_horizontal" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/action_cancel"
+            android:id="@+id/nickserv_cancel" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/change_nick"
+            android:id="@+id/nickserv_change_nick" />
+
+
+    </LinearLayout>
+
+
 </LinearLayout>

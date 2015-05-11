@@ -64,6 +64,11 @@ along with Yaaic.  If not, see <http://www.gnu.org/licenses/>.
             >
         </activity>
         <activity
+            android:name=".activity.NickServActivity"
+            android:label="@string/register_label"
+            >
+        </activity>
+        <activity
             android:name=".activity.JoinActivity"
             android:label="@string/join_label"
             android:theme="@android:style/Theme.Material.Dialog" >
