@@ -97,6 +97,7 @@ public class AddServerActivity extends ActionBarActivity implements OnClickListe
     private ArrayList<String> commands;
 
     ProgressDialog mDialog;
+    private boolean executing = false;
 
     private Context context;
     /**
@@ -106,6 +107,7 @@ public class AddServerActivity extends ActionBarActivity implements OnClickListe
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        executing = false;
 
         context = this.getApplicationContext();
 
@@ -121,8 +123,6 @@ public class AddServerActivity extends ActionBarActivity implements OnClickListe
 
         // If I include the below bit, then the DrawerToggle doesn't function
         // I don't know how to switch it back and forth
-
-
 
         authentication = new Authentication();
         aliases = new ArrayList<String>();
@@ -143,7 +143,10 @@ public class AddServerActivity extends ActionBarActivity implements OnClickListe
         v.findViewById(R.id.actionbar_done).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                onSave(v);
+                if(!executing) {
+                    onSave(v);
+                }
+                executing = true;
             }
         });
 
@@ -601,6 +604,7 @@ public class AddServerActivity extends ActionBarActivity implements OnClickListe
         @Override
         protected void onPostExecute(RegisterValidation validation) {
             mDialog.dismiss();
+            executing = false;
 
             if(validation == null) return;
 

@@ -19,18 +19,26 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Yaaic.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical"
-    android:padding="10dp" >
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <include layout="@layout/item_toolbar" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/nickname"
-        android:id="@+id/nickserv_label" />
+        android:id="@+id/nickserv_label"
+        android:layout_marginTop="18dp"
+        />
 
     <EditText
         android:layout_width="match_parent"
@@ -40,7 +48,7 @@ along with Yaaic.  If not, see <http://www.gnu.org/licenses/>.
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/server_password"
+        android:text="@string/password_optional"
         android:id="@+id/nickserv_label_password" />
 
     <EditText
@@ -54,20 +62,10 @@ along with Yaaic.  If not, see <http://www.gnu.org/licenses/>.
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/action_cancel"
-            android:id="@+id/nickserv_cancel" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/change_nick"
-            android:id="@+id/nickserv_change_nick" />
 
 
+        </LinearLayout>
     </LinearLayout>
+    <include layout="@layout/item_drawer" />
+</android.support.v4.widget.DrawerLayout>
 
-
-</LinearLayout>

@@ -467,6 +467,9 @@ public class ConversationFragment extends Fragment implements ServerListener, Co
                     Toast.makeText(getActivity(), getResources().getString(R.string.only_usable_from_channel), Toast.LENGTH_SHORT).show();
                 }
                 break;
+            case R.id.change_nick:
+                onNickservInitialize();
+                break;
         }
 
         return true;

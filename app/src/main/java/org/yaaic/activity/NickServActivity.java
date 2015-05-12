@@ -26,7 +26,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,12 +40,13 @@ import org.yaaic.listener.ServicesListener;
 import org.yaaic.model.Broadcast;
 import org.yaaic.receiver.ServicesReceiver;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * "About" dialog activity.
  */
-public class NickServActivity extends Activity  implements ServicesListener{
+public class NickServActivity extends ActionBarActivity implements ServicesListener{
     private static final String TAG = "Yaaic/NickservActivity";
     private ServicesReceiver servicesReceiver;
 
@@ -52,6 +56,29 @@ public class NickServActivity extends Activity  implements ServicesListener{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nick_serv);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        View v = LayoutInflater.from(this).inflate(R.layout.item_done_discard, toolbar, false);
+
+        toolbar.addView(v);
+
+        setSupportActionBar(toolbar);
+
+        v.findViewById(R.id.actionbar_discard).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        v.findViewById(R.id.actionbar_done).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onChange();
+            }
+        });
+
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -66,20 +93,6 @@ public class NickServActivity extends Activity  implements ServicesListener{
         Log.v("Nickserv", "OnCreate view to server " + server_id);
 
 
-        ((Button) findViewById(R.id.nickserv_change_nick)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onChange();
-            }
-        });
-
-
-        ((Button) findViewById(R.id.nickserv_cancel)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
         populateData();
     }
 
@@ -98,6 +111,8 @@ public class NickServActivity extends Activity  implements ServicesListener{
 
         for(String d : data) {
             if(d.contains("Contraseña aceptada - Has sido reconocido")) {
+                List<String> mulldata = new ArrayList<>();
+                ((YaaicApplication) this.getApplication()).setNickservData(mulldata);
                 this.finish();
             }
         }

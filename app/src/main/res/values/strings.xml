@@ -253,6 +253,7 @@
     <string name="register_label">Register</string>
 
     <string name="nickserv" translatable="false">nick</string>
+    <string name="password_optional">Password (if you\'re registered)</string>
 
     <string name="change_nick">Change Nick</string>
 
