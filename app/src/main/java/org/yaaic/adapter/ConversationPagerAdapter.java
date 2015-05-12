@@ -75,6 +75,7 @@ public class ConversationPagerAdapter extends PagerAdapter
      * @param conversation
      */
     public void addConversation(Conversation conversation) {
+        if(conversation.getType() == Conversation.TYPE_SERVER) return;
         conversations.add(new ConversationInfo(conversation));
 
         notifyDataSetChanged();

@@ -67,6 +67,7 @@ import android.widget.ExpandableListView.OnGroupExpandListener;
 import android.widget.Toast;
 
 import org.yaaic.adapter.ExpandableListAdapter;
+import org.yaaic.tools.UIHelper;
 
 
 /**
@@ -325,7 +326,7 @@ public class MainActivity extends AppCompatActivity implements YaaicActivity, Se
         });
 
         this.onDestroy();
-        System.exit(0);
+        UIHelper.killApp(true);
     }
 
  /*
