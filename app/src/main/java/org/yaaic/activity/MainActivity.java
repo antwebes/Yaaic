@@ -47,6 +47,7 @@ import android.widget.TextView;
 
 import org.yaaic.R;
 import org.yaaic.Yaaic;
+import org.yaaic.YaaicApplication;
 import org.yaaic.fragment.ConversationFragment;
 import org.yaaic.fragment.OverviewFragment;
 import org.yaaic.fragment.SettingsFragment;
@@ -66,6 +67,9 @@ import android.widget.ExpandableListView.OnGroupCollapseListener;
 import android.widget.ExpandableListView.OnGroupExpandListener;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
 import org.yaaic.adapter.ExpandableListAdapter;
 import org.yaaic.tools.UIHelper;
 
@@ -79,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements YaaicActivity, Se
     private DrawerLayout drawer;
     private IRCBinder binder;
 
+    public static String TAG = "MainActivity";
 
 
     ExpandableListAdapter listAdapter;
@@ -308,24 +313,26 @@ public class MainActivity extends AppCompatActivity implements YaaicActivity, Se
     }
 
     private void onExit() {
-        Runtime.getRuntime().addShutdownHook(new Thread() {
-            public void run() {
-                // shutdown logic
-                for (final Server server : Yaaic.getInstance().getAutoconnectServersAsArrayList()) {
+        // shutdown logic
+        for (final Server server : Yaaic.getInstance().getServersAsArrayList()) {
 
-                    if (binder != null && server.getStatus() == Status.CONNECTED) {
-                        server.clearConversations();
-                        server.setStatus(Status.DISCONNECTED);
-                        server.setMayReconnect(false);
-                        binder.getService().getConnection(server.getId()).quitServer();
-                    }
-                }
-
-                binder.getService().onDestroy();
+            if (binder != null && server.getStatus() == Status.CONNECTED) {
+                server.clearConversations();
+                server.setStatus(Status.DISCONNECTED);
+                server.setMayReconnect(false);
+                binder.getService().getConnection(server.getId()).quitServer();
             }
-        });
+        }
 
-        this.onDestroy();
+
+
+        Intent startMain = new Intent(Intent.ACTION_MAIN);
+        startMain.addCategory(Intent.CATEGORY_HOME);
+        startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startMain.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(startMain);
+
+
         UIHelper.killApp(true);
     }
 
@@ -337,7 +344,7 @@ public class MainActivity extends AppCompatActivity implements YaaicActivity, Se
         listDataChild = new HashMap<String, List<String>>();
 
         // Adding child data
-        listDataHeader.add("My Account");
+        listDataHeader.add(getString(R.string.mi_account));
         listDataHeader.add(getString(R.string.navigation_settings));
 
         // Adding child data

@@ -61,9 +61,9 @@ public class Message
     /* Some are light versions because dark colors hardly readable on
      * Yaaic's dark background */
     public static final int[] colors = {
-        0xFFffffff, // White
-        0xFFffff00, // Yellow
-        0xFFff00ff, // Fuchsia
+       //0xFFffffff, // White
+      //0xFFffff00, // Yellow
+      //0xFFff00ff, // Fuchsia
         0xFFff0000, // Red
         0xFFc0c0c0, // Silver
         0xFF808080, // Gray

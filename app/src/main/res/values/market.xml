@@ -1,23 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="google_play_promo">Yaaic (Yet Another Android IRC Client) is an Internet Relay Chat (IRC) client.</string>
-    <string name="google_play_description">Yaaic (Yet Another Android IRC Client) is an Internet Relay Chat (IRC) client.
+    <string name="google_play_promo"> Free chat.</string>
+    <string name="google_play_description">Chatsfree is online free chat site where you can chat with your friends.
 
 Some of the features:
- * multi-server/channel support
- * SASL support
- * Colored text as well as mIRC colors
- * Smooth channel scrolling / swiping
- * Message icons
- * A bunch of commands
- * Many supported charsets
- * Colored nicknames
- * Nick completion (use search button)
- * Graphical smilies
- * Scrollback history
+ * Multi account support
+ * Register your nick
 
-Yaaic is open source / free software (GPL).
-
-Official Homepage:
-http://www.yaaic.org</string>
+</string>
 </resources>

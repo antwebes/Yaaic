@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="list_channels" translatable="false">
+        <item>#Amistad</item>
+        <item>#España</item>
+        <item>#Chateagratis.net</item>
+        <item>#mazmorra</item>
+        <item>#sexo</item>
+        <item>#mas_de_40</item>
+        <item>#argentina</item>
+        <item>#colombia</item>
+        <item>#peru</item>
+        <item>#latinoamerica</item>
+        <item>#latinos</item>
+        <item>#sumisas</item>
+        <item>#bogota</item>
+        <item>#nuevo_leon</item>
+        <item>#paraguay</item>
+        <item>#mexico</item>
+        <item>#galicia</item>
+        <item>#mas_de_20</item>
+        <item>#jalisco</item>
+        <item>#venezuela</item>
+        <item>#bolivia</item>
+        <item>#gay</item>
+        <item>#lesbianas</item>
+        <item>#madrid</item>
+        <item>#barcelona</item>
+        <item>#Ligar</item>
+        <item>#chile</item>
+        <item>#mas_de_30</item>
+        <item>#ecuador</item>
+        <item>#mas_de_50</item>
+        <item>#cornudos</item>
+
+    </string-array>
+</resources>

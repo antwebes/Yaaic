@@ -30,12 +30,13 @@ import android.view.Window;
 import android.widget.TextView;
 
 import org.yaaic.R;
+import org.yaaic.YaaicApplication;
 
 /**
  * "About" dialog activity.
  */
 public class AboutActivity extends Activity {
-    private static final String TAG = "Yaaic/AboutActivity";
+    private static final String TAG = "AboutActivity";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,6 +48,8 @@ public class AboutActivity extends Activity {
 
         initializeVersionView();
         initializeIrcView();
+
+        ((YaaicApplication)this.getApplication()).sendHit(TAG);
     }
 
     private void initializeVersionView() {

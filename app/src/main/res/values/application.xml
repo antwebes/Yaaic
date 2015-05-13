@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">ChateaGratis.net</string>
-    <string name="app_full_name" translatable="false">ChateaGratis mobile application</string>
-    <string name="app_homepage" translatable="false">http://www.chateagratis.net</string>
-    <string name="app_irc" translatable="false">irc://irc.chateagratis.net</string>
-    <string name="app_copyright" translatable="false">&#169; 2015 ChateaGratis.net</string>
+    <string name="app_name">ChatsFree.net</string>
+    <string name="app_full_name">ChateaGratis mobile application</string>
+    <string name="app_homepage">http://www.chatsfree.net</string>
+    <string name="app_irc" >irc://irc.chatsfree.net</string>
+    <string name="app_copyright">&#169; 2015 Chatsfree.net</string>
     
     <string name="licence_info" translatable="false">
         This application is based on Yaaic is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.

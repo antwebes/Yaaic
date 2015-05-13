@@ -23,6 +23,7 @@ package org.yaaic;
 import android.app.Application;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Logger;
 import com.google.android.gms.analytics.Tracker;
 
@@ -73,17 +74,28 @@ public class YaaicApplication extends Application {
     HashMap<TrackerName, Tracker> mTrackers = new HashMap<TrackerName, Tracker>();
 
 
-    synchronized Tracker getTracker(TrackerName trackerId) {
+    public synchronized Tracker getTracker(TrackerName trackerId) {
         if (!mTrackers.containsKey(trackerId)) {
 
             GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
             Tracker t = analytics.newTracker(R.xml.global_tracker);
 
             t.enableAdvertisingIdCollection(true);
+            t.enableExceptionReporting(true);
+            t.enableAutoActivityTracking(true);
             mTrackers.put(trackerId, t);
 
         }
         return mTrackers.get(trackerId);
     }
+
+
+    public void sendHit(String tag){
+        Tracker t = this.getTracker(YaaicApplication.TrackerName.APP_TRACKER);
+        t.setScreenName(tag);
+        t.send(new HitBuilders.AppViewBuilder().build());
+    }
+
+
 
 }

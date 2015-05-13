@@ -59,6 +59,7 @@ import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.yaaic.R;
 import org.yaaic.Yaaic;
+import org.yaaic.YaaicApplication;
 import org.yaaic.db.Database;
 import org.yaaic.exception.ValidationException;
 import org.yaaic.model.Authentication;
@@ -77,6 +78,8 @@ import java.util.regex.Pattern;
 import android.util.Log;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 /**
  * Add a new server to the list
@@ -98,6 +101,8 @@ public class AddServerActivity extends ActionBarActivity implements OnClickListe
 
     ProgressDialog mDialog;
     private boolean executing = false;
+
+    public static String TAG = "AddServerActivity";
 
     private Context context;
     /**
@@ -213,6 +218,8 @@ public class AddServerActivity extends ActionBarActivity implements OnClickListe
                 ((EditText) findViewById(R.id.password)).setText(String.valueOf(uri.getQuery()));
             }
         }
+
+        ((YaaicApplication)this.getApplication()).sendHit(TAG);
     }
 
     /**

@@ -57,6 +57,7 @@ import android.widget.Toast;
 import org.yaaic.R;
 import org.yaaic.Yaaic;
 import org.yaaic.activity.JoinActivity;
+import org.yaaic.activity.ListActivity;
 import org.yaaic.activity.NickServActivity;
 import org.yaaic.activity.UserActivity;
 import org.yaaic.activity.UsersActivity;
@@ -101,6 +102,7 @@ public class ConversationFragment extends Fragment implements ServerListener, Co
 
     //use last numbers for yaaic updates
     private static final int REQUEST_NICK_CHANGE= 99;
+    private static final int REQUEST_LIST_CHANNELS = 98;
 
     private int serverId;
     private Server server;
@@ -447,6 +449,12 @@ public class ConversationFragment extends Fragment implements ServerListener, Co
                     Toast.makeText(getActivity(), getResources().getString(R.string.close_server_window), Toast.LENGTH_SHORT).show();
                 }
                 break;
+            case R.id.list_channels:
+                Intent i = new Intent(getActivity(), ListActivity.class);
+
+
+                startActivityForResult(i, REQUEST_LIST_CHANNELS);
+                break;
 
             case R.id.join:
                 startActivityForResult(new Intent(getActivity(), JoinActivity.class), REQUEST_CODE_JOIN);
@@ -741,6 +749,13 @@ public class ConversationFragment extends Fragment implements ServerListener, Co
                     binder.getService().getConnection(serverId).changeNick(nick);
                 }
 
+            break;
+            case REQUEST_LIST_CHANNELS:
+                String channel = data.getExtras().getString("channel");
+
+                if(channel != "" && channel != null) {
+                    binder.getService().getConnection(serverId).joinChannel(channel);
+                }
             break;
         }
     }

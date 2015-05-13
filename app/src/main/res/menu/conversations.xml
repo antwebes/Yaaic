@@ -28,6 +28,9 @@ along with Yaaic.  If not, see <http://www.gnu.org/licenses/>.
         android:id="@+id/join"
         android:title="@string/join_channel" />
     <item
+        android:id="@+id/list_channels"
+        android:title="@string/list_channels"/>
+    <item
         android:id="@+id/change_nick"
         android:title="@string/change_nick" />
     <item

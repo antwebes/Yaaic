@@ -57,7 +57,12 @@ along with Yaaic.  If not, see <http://www.gnu.org/licenses/>.
         <activity
             android:name=".activity.AboutActivity"
             android:label="@string/about_label"
-            android:theme="@android:style/Theme.Material.Dialog" >
+            >
+        </activity>
+        <activity
+            android:name=".activity.ListActivity"
+            android:label="@string/about_label"
+            >
         </activity>
         <activity
             android:name=".activity.RegisterActivity"
@@ -72,12 +77,12 @@ along with Yaaic.  If not, see <http://www.gnu.org/licenses/>.
         <activity
             android:name=".activity.JoinActivity"
             android:label="@string/join_label"
-            android:theme="@android:style/Theme.Material.Dialog" >
+             >
         </activity>
         <activity
             android:name=".activity.UsersActivity"
             android:label="@string/users"
-            android:theme="@android:style/Theme.Material.Dialog" >
+             >
         </activity>
         <activity
             android:name=".activity.AddAliasActivity"
@@ -85,28 +90,57 @@ along with Yaaic.  If not, see <http://www.gnu.org/licenses/>.
         </activity>
         <activity
             android:name=".activity.AddChannelActivity"
-            android:theme="@android:style/Theme.Material.Dialog" >
+             >
         </activity>
         <activity
             android:name=".activity.AddCommandsActivity"
-            android:theme="@android:style/Theme.Material.Dialog" >
+             >
         </activity>
         <activity
             android:name=".activity.MessageActivity"
-            android:theme="@android:style/Theme.Material.Dialog" >
+             >
         </activity>
         <activity
             android:name=".activity.UserActivity"
-            android:theme="@android:style/Theme.Material.Dialog" >
+             >
         </activity>
         <activity
             android:name=".activity.AuthenticationActivity"
-            android:theme="@android:style/Theme.Material.Dialog" >
+             >
         </activity>
 
         <service android:name=".irc.IRCService"
             android:label="ChateaService">
         </service>
+
+        <!-- Add the following meta-data for devices running Google Play service. -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <!-- Optionally, register AnalyticsReceiver and AnalyticsService to support background
+             dispatching on non-Google Play devices -->
+        <receiver android:name="com.google.android.gms.analytics.AnalyticsReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="com.google.android.gms.analytics.ANALYTICS_DISPATCH" />
+            </intent-filter>
+        </receiver>
+        <service android:name="com.google.android.gms.analytics.AnalyticsService"
+            android:enabled="true"
+            android:exported="false"/>
+
+        <!-- Optionally, register CampaignTrackingReceiver and CampaignTrackingService to enable
+             installation campaign reporting -->
+        <receiver android:name="com.google.android.gms.analytics.CampaignTrackingReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.android.vending.INSTALL_REFERRER" />
+            </intent-filter>
+        </receiver>
+        <service android:name="com.google.android.gms.analytics.CampaignTrackingService" />
+
+
     </application>
 
 </manifest>

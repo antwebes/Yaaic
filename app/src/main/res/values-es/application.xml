@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ChateaGratis.net</string>
+    <string name="app_full_name">Aplicación de chat de chateagratis.net</string>
+    <string name="app_homepage">http://www.chateagratis.net</string>
+    <string name="app_irc">irc://irc.chateagratis.net</string>
+    <string name="app_copyright">&#169; 2015 ChateaGratis.net</string>
+    
+    <string name="licence_info">
+        Esta aplicacación esta basada en Yaaic y bajo licencia GNU
+    </string>
+</resources>

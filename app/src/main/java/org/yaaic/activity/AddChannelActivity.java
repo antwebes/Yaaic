@@ -23,6 +23,7 @@ package org.yaaic.activity;
 import java.util.ArrayList;
 
 import org.yaaic.R;
+import org.yaaic.YaaicApplication;
 import org.yaaic.model.Extra;
 
 import android.app.Activity;
@@ -51,6 +52,8 @@ public class AddChannelActivity extends Activity implements OnClickListener, OnI
     private ArrayAdapter<String> adapter;
     private ArrayList<String> channels;
     private Button okButton;
+
+    public static String TAG = "AddChannelActivity";
 
     /**
      * On create
@@ -84,6 +87,8 @@ public class AddChannelActivity extends Activity implements OnClickListener, OnI
         for (String channel : channels) {
             adapter.add(channel);
         }
+
+        ((YaaicApplication)this.getApplication()).sendHit(TAG);
     }
 
     /**
