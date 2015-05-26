@@ -74,12 +74,42 @@ along with Yaaic.  If not, see <http://www.gnu.org/licenses/>.
             android:layout_marginTop="4dp"
             android:background="@color/divider" />
 
-        <ExpandableListView
-            android:id="@+id/lvExp"
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"/>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:layout_toRightOf="@id/icon"
+            android:layout_centerVertical="true"
+            android:paddingLeft="16dp"
+            android:gravity="center_vertical"
+            android:text="@string/manage_accounts_label"
+            android:drawableLeft="@drawable/ic_action_accounts"
+            android:id="@+id/menu_manage_accounts"
+            android:paddingTop="0dp" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:layout_toRightOf="@id/icon"
+            android:layout_centerVertical="true"
+            android:drawableLeft="@drawable/ic_action_stop"
+            android:paddingLeft="16dp"
+            android:gravity="center_vertical"
+            android:text="@string/disconnect"
+            android:id="@+id/menu_disconnect"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:layout_toRightOf="@id/icon"
+            android:layout_centerVertical="true"
+            android:paddingLeft="16dp"
+            android:gravity="center_vertical"
+            android:text="@string/navigation_settings"
+            android:drawableLeft="@drawable/ic_action_settings"
+            android:id="@+id/menu_settings"
+            />
 
     </LinearLayout>
 

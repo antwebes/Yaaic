@@ -86,8 +86,7 @@ public class MainActivity extends AppCompatActivity implements YaaicActivity, Se
     public static String TAG = "MainActivity";
 
 
-    ExpandableListAdapter listAdapter;
-    ExpandableListView expListView;
+
     List<String> listDataHeader;
     HashMap<String, List<String>> listDataChild;
 
@@ -104,7 +103,36 @@ public class MainActivity extends AppCompatActivity implements YaaicActivity, Se
             onOverview(null);
         }
 
-        onCreateExpandableList();
+        populateListeners();
+
+    }
+
+    public void populateListeners() {
+        TextView tv = (TextView) findViewById(R.id.menu_manage_accounts);
+        tv.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                onOverview(v);
+            }
+        });
+        TextView tv2 = (TextView) findViewById(R.id.menu_disconnect);
+        tv2.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                onExit();
+            }
+        });
+        TextView tv3 = (TextView) findViewById(R.id.menu_settings);
+        tv3.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                onSettings(v);
+            }
+        });
+
     }
 
     public void initializeToolbar() {
@@ -250,63 +278,7 @@ public class MainActivity extends AppCompatActivity implements YaaicActivity, Se
     }
 
 
-    private void onCreateExpandableList() {
-        expListView = (ExpandableListView) findViewById(R.id.lvExp);
 
-        // preparing list data
-        prepareListData();
-
-        listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
-
-        // setting list adapter
-        expListView.setAdapter(listAdapter);
-
-        // Listview Group click listener
-        expListView.setOnGroupClickListener(new OnGroupClickListener() {
-
-            @Override
-            public boolean onGroupClick(ExpandableListView parent, View v,
-                                        int groupPosition, long id) {
-                // Toast.makeText(getApplicationContext(),
-                // "Group Clicked " + listDataHeader.get(groupPosition),
-                // Toast.LENGTH_SHORT).show();
-                return false;
-            }
-        });
-
-
-        // Listview on child click listener
-        expListView.setOnChildClickListener(new OnChildClickListener() {
-
-            @Override
-            public boolean onChildClick(ExpandableListView parent, View v,
-                                        int groupPosition, int childPosition, long id) {
-
-                String clicked = listDataChild.get(listDataHeader.get(groupPosition)).get(childPosition);
-                if(getString(R.string.about_label) == clicked) {
-                    onAbout(v);
-                }
-
-                if(getString(R.string.advanced_label) == clicked) {
-                    onSettings(v);
-                }
-
-                if(getString(R.string.manage_accounts_label) == clicked) {
-                    onOverview(v);
-                }
-
-                if(getString(R.string.close_application) == clicked) {
-                    onExit();
-                }
-
-                if(getString(R.string.register_label) == clicked) {
-                    onRegister();
-                }
-
-                return false;
-            }
-        });
-    }
 
     private void onRegister() {
         drawer.closeDrawers();
@@ -326,34 +298,6 @@ public class MainActivity extends AppCompatActivity implements YaaicActivity, Se
             }
         }
         onOverview(null);
-    }
-
- /*
- * Preparing the list data
- */
-    private void prepareListData() {
-        listDataHeader = new ArrayList<String>();
-        listDataChild = new HashMap<String, List<String>>();
-
-        // Adding child data
-        listDataHeader.add(getString(R.string.mi_account));
-        listDataHeader.add(getString(R.string.navigation_settings));
-
-        // Adding child data
-        List<String> myAccount = new ArrayList<String>();
-        myAccount.add(getString(R.string.manage_accounts_label));
-        myAccount.add(getString(R.string.register_label));
-        myAccount.add(getString(R.string.close_application));
-
-
-        List<String> settings = new ArrayList<String>();
-
-        settings.add(getString(R.string.advanced_label));
-        settings.add(getString(R.string.about_label));
-
-
-        listDataChild.put(listDataHeader.get(0), myAccount); // Header, Child data
-        listDataChild.put(listDataHeader.get(1), settings);
     }
 
     public void autoConnectServers() {

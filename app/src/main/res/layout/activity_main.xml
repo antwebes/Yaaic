@@ -42,4 +42,6 @@ along with Yaaic.  If not, see <http://www.gnu.org/licenses/>.
 
     <include layout="@layout/item_drawer" />
 
+
+
 </android.support.v4.widget.DrawerLayout>
