@@ -50,6 +50,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.SystemClock;
+import android.util.Log;
 
 /**
  * The background service for managing the irc connections
@@ -94,6 +95,8 @@ public class IRCService extends Service
     private HashMap<Integer, PendingIntent> alarmIntents;
     private HashMap<Integer, ReconnectReceiver> alarmReceivers;
     private final Object alarmIntentsLock;
+
+    private  boolean stopReconnect = false;
 
     /**
      * Create new service
@@ -313,7 +316,6 @@ public class IRCService extends Service
         if (convTitle == null) {
             return;
         }
-
         Conversation conversation = mentions.remove(getConversationId(serverId, convTitle));
         if (conversation == null) {
             return;
@@ -323,7 +325,6 @@ public class IRCService extends Service
         if (newMentions < 0) {
             newMentions = 0;
         }
-
         updateNotification(null, null, false, false, false);
     }
 
@@ -633,5 +634,13 @@ public class IRCService extends Service
     public IRCBinder onBind(Intent intent)
     {
         return binder;
+    }
+
+    public boolean isStopReconnect() {
+        return stopReconnect;
+    }
+
+    public void setStopReconnect(boolean stopReconnect) {
+        this.stopReconnect = stopReconnect;
     }
 }

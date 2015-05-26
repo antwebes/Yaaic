@@ -34,8 +34,6 @@ import org.jibble.pircbot.User;
 import org.yaaic.R;
 import org.yaaic.Yaaic;
 import org.yaaic.YaaicApplication;
-import org.yaaic.activity.MainActivity;
-import org.yaaic.activity.NickServActivity;
 import org.yaaic.command.CommandParser;
 import org.yaaic.model.Broadcast;
 import org.yaaic.model.Channel;
@@ -1184,6 +1182,16 @@ public class IRCConnection extends PircBot
 
         if (code == 353 || code == 366 || code == 332 || code == 333) {
             return;
+        }
+
+        if (code == 477) {
+            //Channel need registration
+            Intent intent = Broadcast.createConversationIntent(
+                    Broadcast.CHANNEL_NEED_REGISTRATION,
+                    server.getId(),
+                    response
+            );
+            service.sendBroadcast(intent);
         }
 
         if (code < 10) {

@@ -192,6 +192,8 @@ public class MainActivity extends AppCompatActivity implements YaaicActivity, Se
 
         switchToFragment(fragment, ConversationFragment.TRANSACTION_TAG);
 
+        if(binder == null) onResume();
+
     }
 
     public void onOverview(View view) {
@@ -315,25 +317,15 @@ public class MainActivity extends AppCompatActivity implements YaaicActivity, Se
     private void onExit() {
         // shutdown logic
         for (final Server server : Yaaic.getInstance().getServersAsArrayList()) {
-
             if (binder != null && server.getStatus() == Status.CONNECTED) {
+                binder.getService().setStopReconnect(true);
                 server.clearConversations();
                 server.setStatus(Status.DISCONNECTED);
                 server.setMayReconnect(false);
                 binder.getService().getConnection(server.getId()).quitServer();
             }
         }
-
-
-
-        Intent startMain = new Intent(Intent.ACTION_MAIN);
-        startMain.addCategory(Intent.CATEGORY_HOME);
-        startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startMain.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(startMain);
-
-
-        UIHelper.killApp(true);
+        onOverview(null);
     }
 
  /*

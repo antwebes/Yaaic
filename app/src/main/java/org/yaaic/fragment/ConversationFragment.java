@@ -310,6 +310,7 @@ public class ConversationFragment extends Fragment implements ServerListener, Co
         serverReceiver = new ServerReceiver(this);
         getActivity().registerReceiver(serverReceiver, new IntentFilter(Broadcast.SERVER_UPDATE));
         getActivity().registerReceiver(serverReceiver, new IntentFilter(Broadcast.NICKSERV_INITIALIZE));
+        getActivity().registerReceiver(serverReceiver, new IntentFilter(Broadcast.CHANNEL_NEED_REGISTRATION));
 
         super.onResume();
 
@@ -328,6 +329,7 @@ public class ConversationFragment extends Fragment implements ServerListener, Co
         // Fill view with messages that have been buffered while paused
         for (Conversation conversation : mConversations) {
             String name = conversation.getName();
+
             mAdapter = pagerAdapter.getItemAdapter(name);
 
             if (mAdapter != null) {
@@ -341,7 +343,7 @@ public class ConversationFragment extends Fragment implements ServerListener, Co
             }
 
             // Clear new message notifications for the selected conversation
-            if (conversation.getStatus() == Conversation.STATUS_SELECTED && conversation.getNewMentions() > 0) {
+            if (conversation.getNewMentions() > 0) {
                 Intent ackIntent = new Intent(getActivity(), IRCService.class);
                 ackIntent.setAction(IRCService.ACTION_ACK_NEW_MENTIONS);
                 ackIntent.putExtra(IRCService.EXTRA_ACK_SERVERID, serverId);
@@ -575,12 +577,16 @@ public class ConversationFragment extends Fragment implements ServerListener, Co
 
     @Override
     public void onNickservInitialize() {
-        Log.v("NickInitialize", "Initialize Nickserv");
         Intent i = new Intent(getActivity(), NickServActivity.class);
         i.putExtra("server_id", server.getId());
         i.putExtra("nick", binder.getService().getConnection(serverId).getNick());
 
         startActivityForResult(i, REQUEST_NICK_CHANGE);
+    }
+
+    @Override
+    public void onChannelNeedRegistration(String target) {
+        Toast.makeText(getActivity(),R.string.channel_need_registration, Toast.LENGTH_LONG).show();
     }
 
     /**
@@ -602,7 +608,7 @@ public class ConversationFragment extends Fragment implements ServerListener, Co
                 return;
             }
 
-            if (!binder.getService().getSettings().isReconnectEnabled() && !reconnectDialogActive) {
+            if (!binder.getService().getSettings().isReconnectEnabled() && !reconnectDialogActive && !binder.getService().isStopReconnect()) {
                 reconnectDialogActive = true;
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setMessage(getResources().getString(R.string.reconnect_after_disconnect, server.getTitle()))

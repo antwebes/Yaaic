@@ -40,6 +40,8 @@ public abstract class Broadcast
     public static final String NICKSERV_MESSAGE = "net.chateagratis.nickserv_message";
     public static final String NICKSERV_INITIALIZE = "net.chateagratis.nickserv_initialize";
 
+    public static final String CHANNEL_NEED_REGISTRATION = "net.chateagratis.channel_need_registration";
+
     /**
      * Create an Intent for conversation broadcasting
      * 

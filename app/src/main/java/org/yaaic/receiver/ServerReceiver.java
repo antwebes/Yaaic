@@ -22,6 +22,7 @@ package org.yaaic.receiver;
 
 import org.yaaic.listener.ServerListener;
 import org.yaaic.model.Broadcast;
+import org.yaaic.model.Extra;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -60,6 +61,8 @@ public class ServerReceiver extends BroadcastReceiver
             listener.onStatusUpdate();
         } else if(action.equals(Broadcast.NICKSERV_INITIALIZE)) {
             listener.onNickservInitialize();
+        } else if(action.equals(Broadcast.CHANNEL_NEED_REGISTRATION)) {
+            listener.onChannelNeedRegistration(intent.getExtras().getString(Extra.CONVERSATION));
         }
 
 

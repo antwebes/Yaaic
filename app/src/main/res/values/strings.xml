@@ -248,7 +248,7 @@
 
     <string name="advanced_label">Advanced</string>
     <string name="manage_accounts_label">Manage Accounts</string>
-    <string name="close_application">Close Application</string>
+    <string name="close_application">Disconnect</string>
     <string name="register_label">Register</string>
 
     <string name="nickserv" translatable="false">nick</string>
@@ -259,5 +259,7 @@
 
     <string name="navigation_settings">Settings</string>
     <string name="mi_account">Mi account</string>
+
+    <string name="channel_need_registration">You need register your nick to enter to this channel</string>
 
 </resources>

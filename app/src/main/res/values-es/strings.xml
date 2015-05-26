@@ -222,7 +222,7 @@
 
     <string name="advanced_label">Advanzado</string>
     <string name="manage_accounts_label">Administrar cuentas</string>
-    <string name="close_application">Cerrar Aplicación</string>
+    <string name="close_application">Desconectar</string>
     <string name="register_label">Registro</string>
 
     <string name="password_optional">Contraseña (si esta registrado)</string>
@@ -232,5 +232,7 @@
 
     <string name="navigation_settings">Ajustes</string>
     <string name="mi_account">Mi cuenta</string>
+
+    <string name="channel_need_registration">Necesitas registrar tu nick para entrar a este canal</string>
 
 </resources>

@@ -185,4 +185,9 @@ public class OverviewFragment extends Fragment implements ServerListener, Server
     public void onNickservInitialize() {
         //noting to do...
     }
+
+    @Override
+    public void onChannelNeedRegistration(String target) {
+        //noting to do...
+    }
 }

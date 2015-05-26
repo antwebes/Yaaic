@@ -33,4 +33,6 @@ public interface ServerListener
     public void onStatusUpdate();
 
     public void onNickservInitialize();
+
+    public void onChannelNeedRegistration(String target);
 }
