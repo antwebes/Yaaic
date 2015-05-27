@@ -234,5 +234,15 @@
     <string name="mi_account">Mi cuenta</string>
 
     <string name="channel_need_registration">Necesitas registrar tu nick para entrar a este canal</string>
+    <string name="goodbye_message">Desconectado con éxito. Pulsa atrás o inicio para salir de la aplicación.</string>
+
+
+    <string name="check_nick_title">Comprobando apodo</string>
+    <string name="check_nick_description">Comprobando si el apodo está registrado, por favor espere....</string>
+
+    <string name="check_nick_has_password">Apodo registrado, ponga contraseña o selecciones otro</string>
+
+    <string name="server_label_autoconnecet">Autoconectar</string>
+    <string name="server_label_password">Registrado</string>
 
 </resources>

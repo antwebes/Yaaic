@@ -441,6 +441,12 @@ public class ConversationFragment extends Fragment implements ServerListener, Co
             case R.id.close:
                 Conversation conversationToClose = pagerAdapter.getItem(pager.getCurrentItem());
                 // Make sure we part a channel when closing the channel conversation
+
+                if(conversationToClose == null) {
+                    Toast.makeText(getActivity(), getResources().getString(R.string.close_server_window), Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+
                 if (conversationToClose.getType() == Conversation.TYPE_CHANNEL) {
                     binder.getService().getConnection(serverId).partChannel(conversationToClose.getName());
                 }
@@ -464,6 +470,9 @@ public class ConversationFragment extends Fragment implements ServerListener, Co
 
             case R.id.users:
                 Conversation conversationForUserList = pagerAdapter.getItem(pager.getCurrentItem());
+
+                if (conversationForUserList == null) return true;
+
                 if (conversationForUserList.getType() == Conversation.TYPE_CHANNEL) {
                     Intent intent = new Intent(getActivity(), UsersActivity.class);
                     intent.putExtra(

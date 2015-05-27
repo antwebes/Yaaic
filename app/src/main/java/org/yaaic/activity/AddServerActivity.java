@@ -547,8 +547,8 @@ public class AddServerActivity extends ActionBarActivity implements OnClickListe
 
     private void validateRegisterNick(String nickname) {
         mDialog = new ProgressDialog(this);
-        mDialog.setTitle("Check nickname");
-        mDialog.setMessage("Check if nickname is register...");
+        mDialog.setTitle(getString(R.string.check_nick_title));
+        mDialog.setMessage(getString(R.string.check_nick_description));
         mDialog.show();
 
         new RegisterValidator(nickname).execute();
@@ -625,7 +625,7 @@ public class AddServerActivity extends ActionBarActivity implements OnClickListe
 
                 ((EditText) findViewById(R.id.password)).setVisibility(View.VISIBLE);
                 ((TextView) findViewById(R.id.password_label)).setVisibility(View.VISIBLE);
-                ((EditText) findViewById(R.id.password)).setError("Nick register, set password or select other");
+                ((EditText) findViewById(R.id.password)).setError(getString(R.string.check_nick_has_password));
             }
 
         }

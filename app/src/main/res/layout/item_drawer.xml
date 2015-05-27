@@ -104,6 +104,18 @@ along with Yaaic.  If not, see <http://www.gnu.org/licenses/>.
             android:layout_height="46dp"
             android:layout_toRightOf="@id/icon"
             android:layout_centerVertical="true"
+            android:drawableLeft="@drawable/ic_action_new_email"
+            android:paddingLeft="16dp"
+            android:gravity="center_vertical"
+            android:text="@string/register_label"
+            android:id="@+id/menu_register"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:layout_toRightOf="@id/icon"
+            android:layout_centerVertical="true"
             android:paddingLeft="16dp"
             android:gravity="center_vertical"
             android:text="@string/navigation_settings"

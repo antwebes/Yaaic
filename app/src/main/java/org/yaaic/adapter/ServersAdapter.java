@@ -21,6 +21,7 @@ along with Yaaic.  If not, see <http://www.gnu.org/licenses/>.
 package org.yaaic.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -100,10 +101,13 @@ public class ServersAdapter extends RecyclerView.Adapter<ServersAdapter.ViewHold
                 ? R.drawable.ic_navigation_server_connected
                 : R.drawable.ic_navigation_server_disconnected
         );
-        holder.hostView.setText(String.format("%s @ %s : %d",
-                server.getIdentity().getNickname(),
-                server.getHost(),
-                server.getPort()
+
+        String str = "";
+        if(server.getAutoconnect()) str += holder.itemView.getContext().getString(R.string.server_label_autoconnecet) + " ";
+        if(server.getPassword().length() > 1) str += holder.itemView.getContext().getString(R.string.server_label_password) + " ";
+
+        holder.hostView.setText(String.format("%s",
+               str
         ));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

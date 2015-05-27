@@ -64,7 +64,7 @@ along with Yaaic.  If not, see <http://www.gnu.org/licenses/>.
             android:layout_below="@id/title"
             android:layout_toRightOf="@id/connection"
             android:layout_toLeftOf="@id/menu"
-            android:text="irc.example.com"
+            android:text="Registrado y autoconnectar."
              />
 
     </RelativeLayout>

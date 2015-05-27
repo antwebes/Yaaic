@@ -261,5 +261,14 @@
     <string name="mi_account">Mi account</string>
 
     <string name="channel_need_registration">You need register your nick to enter to this channel</string>
+    <string name="goodbye_message">You are disconnected. Prees home or back button to exit.</string>
+
+    <string name="check_nick_title">Check nickname</string>
+    <string name="check_nick_description">Check if nickname is register....</string>
+
+    <string name="check_nick_has_password">Nick register, set password or select other</string>
+
+    <string name="server_label_autoconnecet">Autoconnect</string>
+    <string name="server_label_password">Registered</string>
 
 </resources>

@@ -104,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements YaaicActivity, Se
         }
 
         populateListeners();
+        autoConnectServers();
 
     }
 
@@ -130,6 +131,15 @@ public class MainActivity extends AppCompatActivity implements YaaicActivity, Se
             @Override
             public void onClick(View v) {
                 onSettings(v);
+            }
+        });
+
+        TextView tv4 = (TextView) findViewById(R.id.menu_register);
+        tv4.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                onRegister();
             }
         });
 
@@ -268,8 +278,6 @@ public class MainActivity extends AppCompatActivity implements YaaicActivity, Se
     @Override
     public void onServiceConnected(ComponentName name, IBinder service) {
         binder = (IRCBinder) service;
-
-        autoConnectServers();
     }
 
     @Override
@@ -298,25 +306,29 @@ public class MainActivity extends AppCompatActivity implements YaaicActivity, Se
             }
         }
         onOverview(null);
+
+        Toast.makeText(this,getString(R.string.goodbye_message),Toast.LENGTH_LONG).show();
     }
 
     public void autoConnectServers() {
         int connected = 0;
-        ArrayList<Server> servers = Yaaic.getInstance().getAutoconnectServersAsArrayList();
+        ArrayList<Server> servers = Yaaic.getInstance().getServersAsArrayList();
         if(servers.size() == 0) {
             drawer.closeDrawers();
 
             startActivity(new Intent(this, AddServerActivity.class));
         } else {
             for (final Server server : servers) {
+                if(server.getAutoconnect()) {
+                    if (binder != null && server.getStatus() == Status.DISCONNECTED) {
+                        binder.connect(server);
+                        server.setStatus(Status.CONNECTING);
+                        connected++;
 
-                if (binder != null && server.getStatus() == Status.DISCONNECTED) {
-                    binder.connect(server);
-                    server.setStatus(Status.CONNECTING);
-                    connected++;
+                        if (connected == 1) onServerSelected(server);
+                    }
+
                 }
-
-                if (connected == 1) onServerSelected(server);
             }
         }
 
