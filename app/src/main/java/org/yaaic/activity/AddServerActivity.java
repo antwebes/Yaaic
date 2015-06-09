@@ -149,9 +149,10 @@ public class AddServerActivity extends ActionBarActivity implements OnClickListe
             @Override
             public void onClick(View v) {
                 if(!executing) {
+                    executing = true;
                     onSave(v);
                 }
-                executing = true;
+
             }
         });
 
@@ -305,6 +306,7 @@ public class AddServerActivity extends ActionBarActivity implements OnClickListe
             validateIdentity();
 
         } catch(ValidationException e) {
+            executing = false;
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }

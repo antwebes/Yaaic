@@ -150,13 +150,10 @@ public class MainActivity extends AppCompatActivity implements YaaicActivity, Se
         setSupportActionBar(toolbar);
     }
 
-    public void initializeDrawer() {
-        drawer = (DrawerLayout) findViewById(R.id.drawer);
-        toggle = new ActionBarDrawerToggle(this, drawer, toolbar, 0, 0);
-
-        drawer.setDrawerListener(toggle);
+    public void updateServers() {
 
         LinearLayout serverContainer = (LinearLayout) findViewById(R.id.server_container);
+        serverContainer.removeAllViews();
 
         for (final Server server : Yaaic.getInstance().getServersAsArrayList()) {
             TextView serverView = (TextView) getLayoutInflater().inflate(R.layout.item_drawer_server, drawer, false);
@@ -173,6 +170,30 @@ public class MainActivity extends AppCompatActivity implements YaaicActivity, Se
 
             serverContainer.addView(serverView, 0);
         }
+    }
+
+    public void initializeDrawer() {
+        drawer = (DrawerLayout) findViewById(R.id.drawer);
+        toggle = new ActionBarDrawerToggle(this, drawer, toolbar, 0, 0)
+        {
+
+            /** Called when a drawer has settled in a completely closed state. */
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+
+            /** Called when a drawer has settled in a completely open state. */
+            public void onDrawerOpened(View drawerView) {
+                updateServers();
+                super.onDrawerOpened(drawerView);
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+        };
+
+        drawer.setDrawerListener(toggle);
+        this.updateServers();
+
     }
 
     @Override
@@ -206,6 +227,7 @@ public class MainActivity extends AppCompatActivity implements YaaicActivity, Se
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        updateServers();
         if (toggle.onOptionsItemSelected(item)) {
             return true;
         }
