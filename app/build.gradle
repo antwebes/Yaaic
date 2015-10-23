@@ -8,8 +8,8 @@ android {
         applicationId "net.chatsfree"
         minSdkVersion 15
         targetSdkVersion 21
-        versionCode 21
-        versionName "0.1.7"
+        versionCode 22
+        versionName "0.1.8"
     }
     buildTypes {
         release {
