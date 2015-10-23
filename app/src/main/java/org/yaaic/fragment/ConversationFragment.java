@@ -676,6 +676,9 @@ public class ConversationFragment extends Fragment implements ServerListener, Co
             case REQUEST_CODE_USER:
                 final int actionId = data.getExtras().getInt(Extra.ACTION);
                 final String nickname = data.getExtras().getString(Extra.USER);
+                if(binder == null || binder.getService() == null ) {
+                    return;
+                }
                 final IRCConnection connection = binder.getService().getConnection(server.getId());
                 final String conversation = server.getSelectedConversation();
                 final Handler handler = new Handler();

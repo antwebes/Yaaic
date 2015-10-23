@@ -592,7 +592,9 @@ public class AddServerActivity extends ActionBarActivity implements OnClickListe
                     Log.e("ApiError", e.getMessage(), e);
                     ObjectMapper mapper = new ObjectMapper();
                     try {
+                        Log.i("ApiCheck", "Error response: " + e.getResponseBodyAsString());
                         RegisterValidation validation = mapper.readValue(e.getResponseBodyAsString(), RegisterValidation.class);
+                        validation.setCode(34);
                         Log.i("ApiCheck","400 user already register");
                         return validation;
                     } catch (IOException e1) {
@@ -615,12 +617,16 @@ public class AddServerActivity extends ActionBarActivity implements OnClickListe
             mDialog.dismiss();
             executing = false;
 
+            Log.i("ApiCheck","onPostExecute");
+
             if(validation == null) return;
 
             if (validation.isValid()) {
                 onSaveDone();
                 return;
             }
+
+            Log.i("ApiCheck","validationCode" + validation.getCode());
 
             if(validation.getCode() == 34) {
                 Log.i("ApiCheck","Nick register");

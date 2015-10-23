@@ -8,8 +8,8 @@ android {
         applicationId "net.chatsfree"
         minSdkVersion 15
         targetSdkVersion 21
-        versionCode 19
-        versionName "0.1.5"
+        versionCode 21
+        versionName "0.1.7"
     }
     buildTypes {
         release {
@@ -39,5 +39,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.1.1'
     compile 'org.springframework.android:spring-android-rest-template:1.0.1.RELEASE'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.3.2'
-    compile 'com.google.android.gms:play-services:7.3.0'
+    compile 'com.google.android.gms:play-services-ads:8.1.0'
+    compile 'com.google.android.gms:play-services:8.1.0'
 }

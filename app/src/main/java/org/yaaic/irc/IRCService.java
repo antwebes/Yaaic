@@ -97,6 +97,7 @@ public class IRCService extends Service
     private final Object alarmIntentsLock;
 
     private  boolean stopReconnect = false;
+    public boolean adshow = false;
 
     /**
      * Create new service
@@ -235,13 +236,17 @@ public class IRCService extends Service
                     for (Conversation conv : mentions.values()) {
                         sb.append(conv.getName() + " (" + conv.getNewMentions() + "), ");
                     }
-                    contentText = getString(R.string.notification_mentions, sb.substring(0, sb.length()-2));
+                    if(sb.length() > 2) {
+                        contentText = getString(R.string.notification_mentions, sb.substring(0, sb.length() - 2));
+                    }
                 } else if (!connectedServerTitles.isEmpty()) {
                     StringBuilder sb = new StringBuilder();
                     for (String title : connectedServerTitles) {
                         sb.append(title + ", ");
                     }
-                    contentText = getString(R.string.notification_connected, sb.substring(0, sb.length()-2));
+                    if(sb.length() > 2) {
+                        contentText = getString(R.string.notification_connected, sb.substring(0, sb.length() - 2));
+                    }
                 } else {
                     contentText = getString(R.string.notification_not_connected);
                 }

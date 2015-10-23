@@ -271,4 +271,6 @@
     <string name="server_label_autoconnecet">Autoconnect</string>
     <string name="server_label_password">Registered</string>
 
+    <string name="admob_pub_interstitial">ca-app-pub-7405989890180505/1315781306</string>
+
 </resources>

@@ -37,4 +37,5 @@ along with Yaaic.  If not, see <http://www.gnu.org/licenses/>.
         android:layout_marginBottom="16dp"
         android:layout_marginRight="16dp"
         android:contentDescription="@string/add_server_label" />
+
 </RelativeLayout>

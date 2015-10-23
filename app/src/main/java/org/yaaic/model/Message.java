@@ -268,16 +268,21 @@ public class Message
 
             if (hasColor() && settings.showColors()) {
                 // Only apply the foreground color to areas that don't already have a foreground color.
-                ForegroundColorSpan[] spans = canvas.getSpans(0, canvas.length(), ForegroundColorSpan.class);
-                int start = 0;
+                try {
+                    ForegroundColorSpan[] spans = canvas.getSpans(0, canvas.length(), ForegroundColorSpan.class);
+                    int start = 0;
 
-                for (int i = 0; i < spans.length; i++) {
-                    canvas.setSpan(new ForegroundColorSpan(color), start, canvas.getSpanStart(spans[i]), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    start = canvas.getSpanEnd(spans[i]);
+                    for (int i = 0; i < spans.length; i++) {
+                        canvas.setSpan(new ForegroundColorSpan(color), start, canvas.getSpanStart(spans[i]), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        start = canvas.getSpanEnd(spans[i]);
+                    }
+
+                    canvas.setSpan(new ForegroundColorSpan(color), start, canvas.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                } catch (Exception ex) {
+                    //silent exception
                 }
-
-                canvas.setSpan(new ForegroundColorSpan(color), start, canvas.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            }
+             }
         }
 
         return canvas;

@@ -28,6 +28,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -73,6 +74,9 @@ import com.google.android.gms.analytics.Tracker;
 import org.yaaic.adapter.ExpandableListAdapter;
 import org.yaaic.tools.UIHelper;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 
 /**
  * The main activity of Yaaic. We'll add, remove and replace fragments here.
@@ -82,6 +86,9 @@ public class MainActivity extends AppCompatActivity implements YaaicActivity, Se
     private Toolbar toolbar;
     private DrawerLayout drawer;
     private IRCBinder binder;
+    private boolean showAd = false;
+
+    private InterstitialAd mInterstitialAd;
 
     public static String TAG = "MainActivity";
 
@@ -106,7 +113,54 @@ public class MainActivity extends AppCompatActivity implements YaaicActivity, Se
         populateListeners();
         autoConnectServers();
 
+
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(getString(R.string.admob_pub_interstitial));
+
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                //closed
+            }
+        });
+
+        if(this.getBinder() == null) {
+                new CountDownTimer(120000, 1000) {
+
+                    public void onTick(long millisUntilFinished) {
+
+                    }
+
+                    public void onFinish() {
+                        if(binder != null) {
+                            if(!binder.getService().adshow) {
+                                if (!mInterstitialAd.isLoading() && !mInterstitialAd.isLoaded()) {
+                                    if(!showAd) {
+                                        AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
+                                        mInterstitialAd.loadAd(adRequest);
+                                    }
+                                }
+                            }
+                            binder.getService().adshow = true;
+                        }
+                    }
+                }.start();
+
+        }
+
+        // Prepare an Interstitial Ad Listener
+        mInterstitialAd.setAdListener(new AdListener() {
+            public void onAdLoaded() {
+                // Call displayInterstitial() function
+                mInterstitialAd.show();
+            }
+        });
+
+
+
     }
+
+
 
     public void populateListeners() {
         TextView tv = (TextView) findViewById(R.id.menu_manage_accounts);
@@ -329,7 +383,7 @@ public class MainActivity extends AppCompatActivity implements YaaicActivity, Se
         }
         onOverview(null);
 
-        Toast.makeText(this,getString(R.string.goodbye_message),Toast.LENGTH_LONG).show();
+        Toast.makeText(this, getString(R.string.goodbye_message), Toast.LENGTH_LONG).show();
     }
 
     public void autoConnectServers() {
